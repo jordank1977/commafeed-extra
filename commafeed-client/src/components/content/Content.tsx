@@ -12,6 +12,8 @@ import { tss } from "@/tss"
 export interface ContentProps {
     content: string
     highlight?: string
+    truncateToFirstParagraph?: boolean
+    truncationLength?: number
 }
 
 const useStyles = tss.create(() => ({
@@ -87,6 +89,65 @@ class HighlightMatcher extends Matcher {
     }
 }
 
+/**
+ * Truncates HTML content to approximately N characters.
+ * Preserves HTML structure and adds ellipsis if truncated.
+ */
+function truncateContent(html: string, maxChars: number = 1000): string {
+    if (!html || html.trim().length === 0) {
+        return html
+    }
+
+    // Create a temporary DOM element to parse HTML safely
+    const tempDiv = document.createElement("div")
+    tempDiv.innerHTML = html
+
+    // Get text content to check length
+    const textContent = tempDiv.textContent || ""
+
+    // If content is already short enough, return as-is
+    if (textContent.length <= maxChars) {
+        return html
+    }
+
+    // Truncate to first maxChars characters of text
+    let charCount = 0
+
+    function truncateNode(node: globalThis.Node): boolean {
+        if (charCount >= maxChars) {
+            return true // Signal to stop processing
+        }
+
+        if (node.nodeType === globalThis.Node.TEXT_NODE) {
+            const text = node.textContent || ""
+            if (charCount + text.length > maxChars) {
+                // Truncate this text node
+                const remaining = maxChars - charCount
+                node.textContent = `${text.substring(0, remaining)}...`
+                charCount = maxChars
+                return true
+            }
+            charCount += text.length
+        } else if (node.nodeType === globalThis.Node.ELEMENT_NODE) {
+            const children = Array.from(node.childNodes)
+            for (let i = 0; i < children.length; i++) {
+                if (truncateNode(children[i] as globalThis.Node)) {
+                    // Remove all subsequent siblings
+                    while (node.childNodes.length > i + 1) {
+                        const lastChild = node.lastChild
+                        if (lastChild) node.removeChild(lastChild)
+                    }
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    truncateNode(tempDiv as globalThis.Node)
+    return tempDiv.innerHTML
+}
+
 // allow iframe tag
 const allowList = [...ALLOWED_TAG_LIST, "iframe"]
 
@@ -95,10 +156,13 @@ const Content = React.memo((props: ContentProps) => {
     const { classes } = useStyles()
     const matchers = props.highlight ? [new HighlightMatcher(props.highlight)] : []
 
+    // Apply truncation if enabled
+    const displayContent = props.truncateToFirstParagraph ? truncateContent(props.content, props.truncationLength) : props.content
+
     return (
         <BasicHtmlStyles>
             <Box className={classes.content}>
-                <Interweave content={props.content} transform={transform} matchers={matchers} allowList={allowList} />
+                <Interweave content={displayContent} transform={transform} matchers={matchers} allowList={allowList} />
             </Box>
         </BasicHtmlStyles>
     )

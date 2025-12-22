@@ -11,10 +11,17 @@ export interface FeedEntryBodyProps {
 
 export function FeedEntryBody(props: Readonly<FeedEntryBodyProps>) {
     const search = useAppSelector(state => state.entries.search)
+    const truncateToFirstParagraph = useAppSelector(state => state.user.settings?.truncateArticlesToFirstParagraph ?? false)
+    const truncationLength = useAppSelector(state => state.user.settings?.truncateArticlesLength ?? 1000)
     return (
         <Box>
             <Box>
-                <Content content={props.entry.content} highlight={search} />
+                <Content
+                    content={props.entry.content}
+                    highlight={search}
+                    truncateToFirstParagraph={truncateToFirstParagraph}
+                    truncationLength={truncationLength}
+                />
             </Box>
             {props.entry.enclosureType && props.entry.enclosureUrl && (
                 <Box pt="md">
@@ -29,6 +36,8 @@ export function FeedEntryBody(props: Readonly<FeedEntryBodyProps>) {
                         thumbnailWidth={props.entry.mediaThumbnailWidth}
                         thumbnailHeight={props.entry.mediaThumbnailHeight}
                         description={props.entry.mediaDescription}
+                        truncateDescription={truncateToFirstParagraph}
+                        truncationLength={truncationLength}
                     />
                 </Box>
             )}

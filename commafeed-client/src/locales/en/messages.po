@@ -678,6 +678,10 @@ msgstr "No sharing options available."
 msgid "Nothing found"
 msgstr "Nothing found"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Number of characters to show when articles are truncated. Enter value between {TRUNCATE_ARTICLES_MIN}-{TRUNCATE_ARTICLES_MAX} (default {TRUNCATE_ARTICLES_DEFAULT})."
+msgstr "Number of characters to show when articles are truncated. Enter value between {TRUNCATE_ARTICLES_MIN}-{TRUNCATE_ARTICLES_MAX} (default {TRUNCATE_ARTICLES_DEFAULT})."
+
 #: src/pages/app/AboutPage.tsx
 msgid "Oldest first"
 msgstr "Oldest first"
@@ -697,6 +701,10 @@ msgstr "On mobile, show action buttons at the bottom of the screen"
 #: src/components/settings/DisplaySettings.tsx
 msgid "Only applies to compact, cozy and detailed modes"
 msgstr "Only applies to compact, cozy and detailed modes"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Only show the first N characters of article content. Click the article link to read more."
+msgstr "Only show the first N characters of article content. Click the article link to read more."
 
 #: src/pages/ErrorPage.tsx
 msgid "Oops!"
@@ -1056,6 +1064,14 @@ msgstr "Toggle sidebar"
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Toggle starred status of current entry"
 msgstr "Toggle starred status of current entry"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles"
+msgstr "Truncate articles"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncation length"
+msgstr "Truncation length"
 
 #: src/pages/auth/LoginPage.tsx
 msgid "Try out CommaFeed with the demo account: demo/demo"

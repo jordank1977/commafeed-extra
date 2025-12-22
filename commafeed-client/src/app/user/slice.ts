@@ -20,6 +20,8 @@ import {
     changeSharingSetting,
     changeShowRead,
     changeStarIconDisplayMode,
+    changeTruncateArticlesLength,
+    changeTruncateArticlesToFirstParagraph,
     changeUnreadCountFavicon,
     changeUnreadCountTitle,
     reloadProfile,
@@ -140,6 +142,14 @@ export const userSlice = createSlice({
             if (!state.settings) return
             state.settings.disablePullToRefresh = action.meta.arg
         })
+        builder.addCase(changeTruncateArticlesToFirstParagraph.pending, (state, action) => {
+            if (!state.settings) return
+            state.settings.truncateArticlesToFirstParagraph = action.meta.arg
+        })
+        builder.addCase(changeTruncateArticlesLength.pending, (state, action) => {
+            if (!state.settings) return
+            state.settings.truncateArticlesLength = action.meta.arg
+        })
         builder.addCase(changePrimaryColor.pending, (state, action) => {
             if (!state.settings) return
             state.settings.primaryColor = action.meta.arg
@@ -166,6 +176,8 @@ export const userSlice = createSlice({
                 changeUnreadCountTitle.fulfilled,
                 changeUnreadCountFavicon.fulfilled,
                 changeDisablePullToRefresh.fulfilled,
+                changeTruncateArticlesToFirstParagraph.fulfilled,
+                changeTruncateArticlesLength.fulfilled,
                 changePrimaryColor.fulfilled,
                 changeSharingSetting.fulfilled
             ),

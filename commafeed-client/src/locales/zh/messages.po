@@ -678,6 +678,10 @@ msgstr "没有可用的分享选项"
 msgid "Nothing found"
 msgstr "没有找到"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Number of characters to show when articles are truncated. Enter value between {TRUNCATE_ARTICLES_MIN}-{TRUNCATE_ARTICLES_MAX} (default {TRUNCATE_ARTICLES_DEFAULT})."
+msgstr ""
+
 #: src/pages/app/AboutPage.tsx
 msgid "Oldest first"
 msgstr "最早的优先"
@@ -697,6 +701,10 @@ msgstr "在移动端，显示屏幕底部的操作按钮"
 #: src/components/settings/DisplaySettings.tsx
 msgid "Only applies to compact, cozy and detailed modes"
 msgstr "仅适用于紧凑、宽松和详细模式"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Only show the first N characters of article content. Click the article link to read more."
+msgstr ""
 
 #: src/pages/ErrorPage.tsx
 msgid "Oops!"
@@ -1056,6 +1064,14 @@ msgstr "切换侧边栏"
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Toggle starred status of current entry"
 msgstr "切换当前条目的星标状态"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles"
+msgstr ""
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncation length"
+msgstr ""
 
 #: src/pages/auth/LoginPage.tsx
 msgid "Try out CommaFeed with the demo account: demo/demo"

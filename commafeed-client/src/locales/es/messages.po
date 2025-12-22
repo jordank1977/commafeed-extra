@@ -679,6 +679,10 @@ msgstr "No hay opciones para compartir disponibles."
 msgid "Nothing found"
 msgstr "Nada encontrado"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Number of characters to show when articles are truncated. Enter value between {TRUNCATE_ARTICLES_MIN}-{TRUNCATE_ARTICLES_MAX} (default {TRUNCATE_ARTICLES_DEFAULT})."
+msgstr ""
+
 #: src/pages/app/AboutPage.tsx
 msgid "Oldest first"
 msgstr "Las más antiguas primero"
@@ -698,6 +702,10 @@ msgstr "En dispositivos móviles, mostrar los botones de acción en la parte inf
 #: src/components/settings/DisplaySettings.tsx
 msgid "Only applies to compact, cozy and detailed modes"
 msgstr "Sólo se aplica a los modos compacto, acogedor y detallado"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Only show the first N characters of article content. Click the article link to read more."
+msgstr ""
 
 #: src/pages/ErrorPage.tsx
 msgid "Oops!"
@@ -1057,6 +1065,14 @@ msgstr "Alternar barra lateral"
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Toggle starred status of current entry"
 msgstr "Alternar estado destacado de la entrada actual"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles"
+msgstr ""
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncation length"
+msgstr ""
 
 #: src/pages/auth/LoginPage.tsx
 msgid "Try out CommaFeed with the demo account: demo/demo"

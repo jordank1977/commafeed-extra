@@ -678,6 +678,10 @@ msgstr ""
 msgid "Nothing found"
 msgstr "Ничего не найдено"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Number of characters to show when articles are truncated. Enter value between {TRUNCATE_ARTICLES_MIN}-{TRUNCATE_ARTICLES_MAX} (default {TRUNCATE_ARTICLES_DEFAULT})."
+msgstr ""
+
 #: src/pages/app/AboutPage.tsx
 msgid "Oldest first"
 msgstr "Сначала самые старые"
@@ -696,6 +700,10 @@ msgstr "На мобильных устройствах отображать кн
 
 #: src/components/settings/DisplaySettings.tsx
 msgid "Only applies to compact, cozy and detailed modes"
+msgstr ""
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Only show the first N characters of article content. Click the article link to read more."
 msgstr ""
 
 #: src/pages/ErrorPage.tsx
@@ -1056,6 +1064,14 @@ msgstr "Переключить боковую панель"
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Toggle starred status of current entry"
 msgstr "Переключение статуса избранное для текущей записи"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles"
+msgstr ""
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncation length"
+msgstr ""
 
 #: src/pages/auth/LoginPage.tsx
 msgid "Try out CommaFeed with the demo account: demo/demo"

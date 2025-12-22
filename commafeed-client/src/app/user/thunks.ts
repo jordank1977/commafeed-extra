@@ -131,6 +131,26 @@ export const changeDisablePullToRefresh = createAppAsyncThunk(
     }
 )
 
+export const changeTruncateArticlesToFirstParagraph = createAppAsyncThunk(
+    "settings/truncateArticlesToFirstParagraph",
+    (truncateArticlesToFirstParagraph: boolean, thunkApi) => {
+        const { settings } = thunkApi.getState().user
+        if (!settings) return
+        client.user.saveSettings({ ...settings, truncateArticlesToFirstParagraph })
+        thunkApi.dispatch(reloadEntries())
+    }
+)
+
+export const changeTruncateArticlesLength = createAppAsyncThunk(
+    "settings/truncateArticlesLength",
+    (truncateArticlesLength: number, thunkApi) => {
+        const { settings } = thunkApi.getState().user
+        if (!settings) return
+        client.user.saveSettings({ ...settings, truncateArticlesLength })
+        thunkApi.dispatch(reloadEntries())
+    }
+)
+
 export const changePrimaryColor = createAppAsyncThunk("settings/primaryColor", (primaryColor: string, thunkApi) => {
     const { settings } = thunkApi.getState().user
     if (!settings) return

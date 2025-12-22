@@ -23,10 +23,16 @@ import {
     changeSharingSetting,
     changeShowRead,
     changeStarIconDisplayMode,
+    changeTruncateArticlesLength,
+    changeTruncateArticlesToFirstParagraph,
     changeUnreadCountFavicon,
     changeUnreadCountTitle,
 } from "@/app/user/thunks"
 import { locales } from "@/i18n"
+
+const TRUNCATE_ARTICLES_MIN = 100
+const TRUNCATE_ARTICLES_MAX = 10000
+const TRUNCATE_ARTICLES_DEFAULT = 1000
 
 export function DisplaySettings() {
     const language = useAppSelector(state => state.user.settings?.language)
@@ -44,6 +50,8 @@ export function DisplaySettings() {
     const unreadCountTitle = useAppSelector(state => state.user.settings?.unreadCountTitle)
     const unreadCountFavicon = useAppSelector(state => state.user.settings?.unreadCountFavicon)
     const disablePullToRefresh = useAppSelector(state => state.user.settings?.disablePullToRefresh)
+    const truncateArticlesToFirstParagraph = useAppSelector(state => state.user.settings?.truncateArticlesToFirstParagraph)
+    const truncateArticlesLength = useAppSelector(state => state.user.settings?.truncateArticlesLength ?? TRUNCATE_ARTICLES_DEFAULT)
     const sharingSettings = useAppSelector(state => state.user.settings?.sharingSettings)
     const primaryColor = useAppSelector(state => state.user.settings?.primaryColor) || Constants.theme.defaultPrimaryColor
     const { _ } = useLingui()
@@ -183,6 +191,31 @@ export function DisplaySettings() {
                 checked={scrollMarks}
                 onChange={async e => await dispatch(changeScrollMarks(e.currentTarget.checked))}
             />
+
+            <Switch
+                label={<Trans>Truncate articles</Trans>}
+                description={<Trans>Only show the first N characters of article content. Click the article link to read more.</Trans>}
+                checked={truncateArticlesToFirstParagraph}
+                onChange={async e => await dispatch(changeTruncateArticlesToFirstParagraph(e.currentTarget.checked))}
+            />
+
+            {truncateArticlesToFirstParagraph && (
+                <NumberInput
+                    label={<Trans>Truncation length</Trans>}
+                    description={_(
+                        msg`Number of characters to show when articles are truncated. Enter value between ${TRUNCATE_ARTICLES_MIN}-${TRUNCATE_ARTICLES_MAX} (default ${TRUNCATE_ARTICLES_DEFAULT}).`
+                    )}
+                    value={truncateArticlesLength}
+                    onChange={async value => {
+                        if (typeof value === "number" && value >= TRUNCATE_ARTICLES_MIN) {
+                            await dispatch(changeTruncateArticlesLength(value))
+                        }
+                    }}
+                    min={TRUNCATE_ARTICLES_MIN}
+                    max={TRUNCATE_ARTICLES_MAX}
+                    step={100}
+                />
+            )}
 
             <Divider label={<Trans>Browser tab</Trans>} labelPosition="center" />
 

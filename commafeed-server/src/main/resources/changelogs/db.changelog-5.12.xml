@@ -17,4 +17,20 @@
 		</update>
 	</changeSet>
 
+	<changeSet id="add-truncateArticlesToFirstParagraph-setting" author="athou">
+		<addColumn tableName="USERSETTINGS">
+			<column name="truncateArticlesToFirstParagraph" type="BOOLEAN" valueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="add-truncateArticlesLength-setting" author="athou">
+		<addColumn tableName="USERSETTINGS">
+			<column name="truncateArticlesLength" type="INT" valueNumeric="1000">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
 </databaseChangeLog>

@@ -10,6 +10,8 @@ export interface MediaProps {
     thumbnailWidth?: number
     thumbnailHeight?: number
     description?: string
+    truncateDescription?: boolean
+    truncationLength?: number
 }
 
 export function Media(props: Readonly<MediaProps>) {
@@ -32,7 +34,11 @@ export function Media(props: Readonly<MediaProps>) {
             />
             {props.description && (
                 <Box pt="md">
-                    <Content content={props.description} />
+                    <Content
+                        content={props.description}
+                        truncateToFirstParagraph={props.truncateDescription}
+                        truncationLength={props.truncationLength}
+                    />
                 </Box>
             )}
         </BasicHtmlStyles>

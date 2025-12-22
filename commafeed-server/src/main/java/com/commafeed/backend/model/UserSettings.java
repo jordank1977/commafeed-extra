@@ -132,6 +132,8 @@ public class UserSettings extends AbstractModel {
 	private boolean unreadCountTitle;
 	private boolean unreadCountFavicon;
 	private boolean disablePullToRefresh;
+	private boolean truncateArticlesToFirstParagraph;
+	private int truncateArticlesLength;
 
 	private boolean email;
 	private boolean gmail;
