@@ -1,192 +1,169 @@
-# CommaFeed
+# CommaFeed - Enhanced Fork
 
-Google Reader inspired self-hosted RSS reader, based on Quarkus and React/TypeScript.
+A fork of [CommaFeed](https://github.com/Athou/commafeed) with additional features for improved reading experience and content management.
 
 ![preview](https://user-images.githubusercontent.com/1256795/184886828-1973f148-58a9-4c6d-9587-ee5e5d3cc2cb.png)
 
-## Features
+## What's Different in This Fork
 
-- 4 different layouts
-- Light/Dark theme
-- Fully responsive, works great on both mobile and desktop
-- Keyboard shortcuts for almost everything
-- Support for right-to-left feeds
-- Translated in 25+ languages
-- Supports thousands of users and millions of feeds
-- OPML import/export
-- REST API
-- Fever-compatible API for native mobile apps
-- Can automatically mark articles as read based on user-defined rules
-- Highly customizable with [custom CSS](https://athou.github.io/commafeed/documentation/custom-css) and JavaScript
-- [Browser extension](https://github.com/Athou/commafeed-browser-extension)
-- Compiles to native code for blazing fast startup and low memory usage
-- Supports 4 databases
-    - H2 (embedded database)
-    - PostgreSQL
-    - MySQL
-    - MariaDB
+### Article Truncation
+Truncate long articles to a configurable character limit for faster page loads and better readability.
 
-## Usage
+- **Toggle**: Enable/disable article truncation in Display settings
+- **Configurable length**: Set truncation limit (100-10,000 characters, default 1,000)
+- **HTML-safe**: Preserves formatting and media content when truncating
+- **Smart handling**: Articles shorter than the limit are displayed in full
 
-### Public instance
+### Global Content Filter
+Apply filtering expressions to **all feeds** from one central location, with per-feed overrides.
 
-A free public instance is available at https://www.commafeed.com.
+- **Global filter**: Set a single JEXL filter expression that applies to all feeds
+- **Per-feed override**: Individual feeds can use their own custom filter instead
+- **Automatic marking**: Filtered entries are automatically marked as read
+- **Flexible expressions**: Use JEXL syntax to filter by title, content, URL, author, or categories
+  - Example: `url.contains('youtube') or (author eq 'john' and title.contains('update'))`
 
-It has no ads, no tracking, and your data is never exploited or sold to third parties. The service is funded entirely through donations.
-However, this public instance does have a few limitations compared to self-hosted setups, outlined [here](https://github.com/Athou/commafeed/discussions/1567).
+### Why These Features?
 
-### Docker
+**Article Truncation** helps when:
+- You have feeds with very long articles that slow down page loads
+- You want to quickly scan headlines and summaries before diving into full content
+- You're on mobile or have limited bandwidth
 
-Docker is the easiest way to get started with self-hosted CommaFeed.
+**Global Filter** helps when:
+- You want to automatically mark certain types of content as read across all feeds
+- You have common filtering needs that apply to multiple feeds
+- You don't want to set up the same filter expression repeatedly for each feed
 
-Docker images are built automatically and are available at https://hub.docker.com/r/athou/commafeed
+## Quick Start
 
-### Cloud hosting
+### Docker (Recommended)
 
-[PikaPods](https://www.pikapods.com) offers 1-click cloud hosting solutions starting at $1/month with a free $5
-welcome credit and officially supports CommaFeed.
-PikaPods shares 20% of the revenue back to CommaFeed.
+Docker images are available at GitHub Container Registry:
 
-[![PikaPods](https://www.pikapods.com/static/run-button.svg)](https://www.pikapods.com/pods?run=commafeed)
+```bash
+# PostgreSQL + JVM (recommended for most users)
+docker pull ghcr.io/jordank1977/commafeed-extra:master-postgresql-jvm
 
-### Download a precompiled package
+# Other database variants
+docker pull ghcr.io/jordank1977/commafeed-extra:master-h2-jvm
+docker pull ghcr.io/jordank1977/commafeed-extra:master-mysql-jvm
+docker pull ghcr.io/jordank1977/commafeed-extra:master-mariadb-jvm
+```
 
-Go to the [release page](https://github.com/Athou/commafeed/releases) and download the latest version for your operating
-system and database of choice.
+**Docker Compose Example:**
 
-There are two types of packages:
+```yaml
+version: '3'
+services:
+  commafeed:
+    image: ghcr.io/jordank1977/commafeed-extra:master-postgresql-jvm
+    container_name: commafeed
+    ports:
+      - "8082:8082"
+    volumes:
+      - commafeed-data:/commafeed/data
+    environment:
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://db:5432/commafeed
+      - QUARKUS_DATASOURCE_USERNAME=commafeed
+      - QUARKUS_DATASOURCE_PASSWORD=your_password
+      - QUARKUS_HTTP_AUTH_SESSION_ENCRYPTION_KEY=change_this_to_random_16_chars
+    depends_on:
+      - db
 
-- The `linux-x86_64`, `linux-aarch_64` and `windows-x86_64` packages are compiled natively and contain an executable that can be run
-  directly.
-- The `jvm` package is a zip file containing all `.jar` files required to run the application. This package works on all
-  platforms but requires a JRE and is started with `java -jar quarkus-run.jar`.
+  db:
+    image: postgres:16-alpine
+    container_name: commafeed-db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=commafeed
+      - POSTGRES_USER=commafeed
+      - POSTGRES_PASSWORD=your_password
 
-If available for your operating system, the native package is recommended because it has a faster startup time and lower
-memory usage.
+volumes:
+  commafeed-data:
+  postgres-data:
+```
 
-### Build from sources
+### First Login
 
-    ./mvnw clean package [-P<database> [-Pnative]] [-DskipTests]
+When started, the server will listen on http://localhost:8082
 
-- `<database>` can be one of `h2`, `postgresql`, `mysql` or `mariadb`. The default is `h2`.
-- `-Pnative` compiles the application to native code. This requires GraalVM to be installed (`GRAALVM_HOME` environment
-  variable pointing to a GraalVM installation).
-- `-DskipTests` to speed up the build process by skipping tests.
+- **Default username**: `admin`
+- **Default password**: `admin`
 
-When the build is complete:
-
-- a zip containing all jars required to run the application is located at
-  `commafeed-server/target/commafeed-<version>-<database>-jvm.zip`. Extract it and run the application with
-  `java -jar quarkus-run.jar`
-- if you used the native profile, the executable is located at
-  `commafeed-server/target/commafeed-<version>-<database>-<platform>-<arch>-runner[.exe]`
-
-### Distribution packages
-
-- Arch Linux users can use [the CommaFeed package on AUR](https://aur.archlinux.org/pkgbase/commafeed), which builds native binaries with GraalVM for all supported databases.
+**Important**: Change the default password immediately after first login!
 
 ## Configuration
 
-CommaFeed doesn't require any configuration to run with its embedded database (H2). The database file will be stored in
-the `data` directory of the current directory.
+CommaFeed can be configured via:
+- Environment variables (recommended for Docker)
+- `config/application.properties` file
+- Command line arguments with `-D` prefix
+- `.env` file in working directory
 
-To use a different database, you will need to configure the following properties:
+### Essential Settings
 
-- `quarkus.datasource.jdbc.url`
-    - e.g. for H2: `jdbc:h2:./data/db;DEFRAG_ALWAYS=TRUE`
-    - e.g. for PostgreSQL: `jdbc:postgresql://localhost:5432/commafeed`
-    - e.g. for MySQL:
-      `jdbc:mysql://localhost/commafeed?autoReconnect=true&failOverReadOnly=false&maxReconnects=20&rewriteBatchedStatements=true&timezone=UTC`
-    - e.g. for MariaDB:
-      `jdbc:mariadb://localhost/commafeed?autoReconnect=true&failOverReadOnly=false&maxReconnects=20&rewriteBatchedStatements=true&timezone=UTC`
-- `quarkus.datasource.username`
-- `quarkus.datasource.password`
+**Database** (if not using embedded H2):
+```bash
+QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://localhost:5432/commafeed
+QUARKUS_DATASOURCE_USERNAME=commafeed
+QUARKUS_DATASOURCE_PASSWORD=your_password
+```
 
-There are multiple ways to configure CommaFeed:
+**Session encryption** (to persist login across restarts):
+```bash
+QUARKUS_HTTP_AUTH_SESSION_ENCRYPTION_KEY=your_random_16_char_key
+```
 
-- a `config/application.properties` [properties](https://en.wikipedia.org/wiki/.properties) file relative to the working
-  directory (keys in kebab-case)
-- Command line arguments each prefixed with `-D` (keys in kebab-case)
-- Environment variables (keys in UPPER_CASE)
-- a `.env` file in the working directory (keys in UPPER_CASE)
+For all configuration options, see the [official CommaFeed documentation](https://athou.github.io/commafeed/documentation).
 
-When in doubt, the properties file is recommended because CommaFeed will be able to warn about invalid properties and typos.
+## About CommaFeed
 
-All [CommaFeed settings](https://athou.github.io/commafeed/documentation) are optional and have sensible default values.
+CommaFeed is a Google Reader inspired self-hosted RSS reader, based on Quarkus and React/TypeScript.
 
-When logging in, credentials are stored in an encrypted cookie. The encryption key is randomly generated at startup,
-meaning that you will have to log back in after each restart of the application. To prevent this, you can set the
-`quarkus.http.auth.session.encryption-key` property to a fixed value (min. 16 characters).
-All other Quarkus settings can be found [here](https://quarkus.io/guides/all-config).
+### Core Features (from upstream)
 
-When started, the server will listen on http://localhost:8082.
+- 4 different layouts (title, cozy, expanded, card)
+- Light/Dark theme with custom color schemes
+- Fully responsive - works great on mobile and desktop
+- Keyboard shortcuts for everything
+- Right-to-left feed support
+- Translated in 25+ languages
+- OPML import/export
+- REST API & Fever-compatible API for mobile apps
+- Highly customizable with custom CSS and JavaScript
+- Browser extension available
+- Native compilation for fast startup and low memory usage
+- Supports PostgreSQL, MySQL, MariaDB, and H2 databases
 
-### Updates
+## Building from Source
 
-When CommaFeed is up and running, you can subscribe to [this feed](https://github.com/Athou/commafeed/releases.atom) to be notified of new releases.
+```bash
+./mvnw clean package -Ppostgresql [-Pnative] [-DskipTests]
+```
 
-### Memory management
+- Use `-Pnative` for native compilation (requires GraalVM)
+- Use `-DskipTests` to speed up build
+- Replace `postgresql` with `h2`, `mysql`, or `mariadb` as needed
 
-The Java Virtual Machine (JVM) is rather greedy by default and will not release unused memory to the
-operating system. This is because acquiring memory from the operating system is a relatively expensive operation.
-This can be problematic on systems with limited memory.
+## Contributing
 
-#### Hard limit (`native` and `jvm` packages)
+This fork focuses on quality-of-life improvements for content reading and management. If you have ideas for similar enhancements, feel free to open an issue or pull request!
 
-The JVM can be configured to use a maximum amount of memory with the `-Xmx` parameter.
-For example, to limit the JVM to 256MB of memory, use `-Xmx256m`.
+## Original Project
 
-#### Dynamic sizing (`jvm` package)
+This is a fork of [CommaFeed by Athou](https://github.com/Athou/commafeed).
 
-In addition to the previous setting, the JVM can be configured to release unused memory to the operating system with the
-following parameters:
+The original project offers:
+- A free public instance at [commafeed.com](https://www.commafeed.com)
+- Official Docker images at [Docker Hub](https://hub.docker.com/r/athou/commafeed)
+- Professional support and 1-click hosting via [PikaPods](https://www.pikapods.com/pods?run=commafeed)
+- Regular updates and active development
 
-    -Xms20m -XX:+UseG1GC -XX:+UseStringDeduplication -XX:-ShrinkHeapInSteps -XX:G1PeriodicGCInterval=10000 -XX:-G1PeriodicGCInvokesConcurrent -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10
+**Support the original author**: If you find CommaFeed useful, consider [supporting the upstream project](https://github.com/Athou/commafeed#readme).
 
-See [here](https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-g1-garbage-collector1.html)
-and [here](https://docs.oracle.com/en/java/javase/17/gctuning/factors-affecting-garbage-collection-performance.html) for
-more
-information.
+## License
 
-#### OpenJ9 (`jvm` package)
-
-The [OpenJ9](https://eclipse.dev/openj9/) JVM is a more memory-efficient alternative to the HotSpot JVM, at the cost of
-slightly slower throughput.
-
-IBM provides precompiled binaries for OpenJ9
-named [Semeru](https://developer.ibm.com/languages/java/semeru-runtimes/downloads/).
-This is the JVM used in
-the [Docker image](https://github.com/Athou/commafeed/blob/master/commafeed-server/src/main/docker/Dockerfile.jvm).
-
-## Translation
-
-Files for internationalization are
-located [here](https://github.com/Athou/commafeed/tree/master/commafeed-client/src/locales).
-
-To add a new language:
-
-- add the new locale to the `locales` array in:
-    - `commafeed-client/.linguirc`
-    - `commafeed-client/src/i18n.ts`
-- run `npm run i18n:extract`
-- add translations to the newly created `commafeed-client/src/locales/[locale]/messages.po` file
-
-The name of the locale should be the
-two-letters [ISO-639-1 language code](http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
-
-## Local development
-
-### Backend
-
-- Open `commafeed-server` in your preferred Java IDE.
-    - CommaFeed uses Lombok, you need the Lombok plugin for your IDE.
-- run `./mvnw quarkus:dev`
-
-### Frontend
-
-- Open `commafeed-client` in your preferred JavaScript IDE.
-- run `npm install`
-- run `npm run dev`
-
-The frontend server is now running at http://localhost:8082 and is proxying REST requests to the backend running on
-port 8083
+Licensed under the Apache License 2.0. See the original CommaFeed repository for full license details.
