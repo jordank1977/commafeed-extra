@@ -180,12 +180,13 @@ export function FeedDetailsPage() {
                         {...form.getInputProps("filterOverrideEnabled", { type: "checkbox" })}
                     />
 
-                    <TextInput
-                        label={<Trans>Filtering expression</Trans>}
-                        description={<FilteringExpressionDescription />}
-                        disabled={!form.values.filterOverrideEnabled}
-                        {...form.getInputProps("filter")}
-                    />
+                    {form.values.filterOverrideEnabled && (
+                        <TextInput
+                            label={<Trans>Filtering expression</Trans>}
+                            description={<FilteringExpressionDescription />}
+                            {...form.getInputProps("filter")}
+                        />
+                    )}
 
                     <Group>
                         <Button variant="default" onClick={async () => await dispatch(redirectToSelectedSource())}>
