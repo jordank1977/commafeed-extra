@@ -17,6 +17,7 @@ msgstr ""
 msgid "<0>CommaFeed is an open-source project. Sources are hosted on </0><1>GitHub</1>."
 msgstr "<0>CommaFeed é um projeto de código abrto. O código está hospedado no </0><1>GitHub</1>."
 
+#: src/components/settings/DisplaySettings.tsx
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "<0>Complete syntax is available </0><1>here</1><2>.</2>"
 msgstr "<0>Sintaxe completa disponível </0><1>aqui</1><2>.</2>"
@@ -126,6 +127,7 @@ msgstr "Tem certeza de que deseja cancelar a inscrição em <0>{feedName}</0>?"
 msgid "Asc"
 msgstr "Asc"
 
+#: src/components/settings/DisplaySettings.tsx
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Available variables are 'title', 'content', 'url' 'author' and 'categories' and their content is converted to lower case to ease string comparison."
 msgstr "As variáveis ​​disponíveis são 'título', 'conteúdo', 'url' 'autor' e 'categorias' e seu conteúdo é convertido em letras minúsculas para facilitar a comparação de strings."
@@ -230,6 +232,8 @@ msgstr "Confirmar senha"
 #: src/pages/auth/PasswordResetPage.tsx
 #: src/pages/auth/PasswordResetPage.tsx
 msgid "Confirm Password"
+#: src/components/settings/DisplaySettings.tsx
+msgid "Content filtering"
 msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
@@ -369,6 +373,10 @@ msgstr "Erro"
 msgid "Example: {example}."
 msgstr "Exemplo: {exemplo}."
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Example: <0>url.contains('youtube') or (author eq 'athou' and title.contains('github'))</0>."
+msgstr ""
+
 #: src/components/header/ProfileMenu.tsx
 msgid "Expanded"
 msgstr "Expandido"
@@ -436,6 +444,10 @@ msgstr "Gerar nova chave de API"
 msgid "Generated feed url"
 msgstr "URL do feed gerado"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Global filter expression"
+msgstr ""
+
 #. placeholder {0}: truncate(props.entry.feedName, 30)
 #: src/components/content/FeedEntryContextMenu.tsx
 msgid "Go to {0}"
@@ -472,6 +484,10 @@ msgstr "ID"
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "If not empty, an expression evaluating to 'true' or 'false'. If false, new entries for this feed will be marked as read automatically."
 msgstr "Se não estiver vazio, uma expressão avaliada como 'true' ou 'false'. "
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "If not empty, an expression evaluating to 'true' or 'false'. If false, new entries will be marked as read automatically."
+msgstr ""
 
 #: src/components/settings/DisplaySettings.tsx
 msgid "If the entry doesn't entirely fit on the screen"
@@ -1096,6 +1112,10 @@ msgstr "Desestrelar"
 msgid "Unsubscribe"
 msgstr "Cancelar inscrição"
 
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "Use custom filter for this feed"
+msgstr ""
+
 #: src/components/settings/ProfileSettings.tsx
 msgid "User name"
 msgstr "Nome de usuário"
@@ -1119,6 +1139,8 @@ msgstr "Site"
 
 #: src/pages/auth/InitialSetupPage.tsx
 msgid "Welcome! This appears to be the first time you're running CommaFeed. Please create an administrator account to get started."
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "When enabled, this feed will use its own filter instead of the global filter"
 msgstr ""
 
 #: src/components/settings/DisplaySettings.tsx

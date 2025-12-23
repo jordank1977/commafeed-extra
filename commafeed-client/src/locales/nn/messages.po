@@ -17,6 +17,7 @@ msgstr ""
 msgid "<0>CommaFeed is an open-source project. Sources are hosted on </0><1>GitHub</1>."
 msgstr ""
 
+#: src/components/settings/DisplaySettings.tsx
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "<0>Complete syntax is available </0><1>here</1><2>.</2>"
 msgstr ""
@@ -126,6 +127,7 @@ msgstr "Er du sikker på at du vil avslutte abonnementet på <0>{feedName}</0>?"
 msgid "Asc"
 msgstr ""
 
+#: src/components/settings/DisplaySettings.tsx
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Available variables are 'title', 'content', 'url' 'author' and 'categories' and their content is converted to lower case to ease string comparison."
 msgstr "Tilgjengelige variabler er 'tittel', 'innhold', 'url' 'forfatter' og 'kategorier', og innholdet deres konverteres til små bokstaver for å lette strengsammenligning."
@@ -230,6 +232,8 @@ msgstr "Bekreft passord"
 #: src/pages/auth/PasswordResetPage.tsx
 #: src/pages/auth/PasswordResetPage.tsx
 msgid "Confirm Password"
+#: src/components/settings/DisplaySettings.tsx
+msgid "Content filtering"
 msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
@@ -369,6 +373,10 @@ msgstr "Feil"
 msgid "Example: {example}."
 msgstr "Eksempel: {eksempel}."
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Example: <0>url.contains('youtube') or (author eq 'athou' and title.contains('github'))</0>."
+msgstr ""
+
 #: src/components/header/ProfileMenu.tsx
 msgid "Expanded"
 msgstr "Utvidet"
@@ -436,6 +444,10 @@ msgstr "Generer ny API-nøkkel"
 msgid "Generated feed url"
 msgstr "Generert feed-url"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Global filter expression"
+msgstr ""
+
 #. placeholder {0}: truncate(props.entry.feedName, 30)
 #: src/components/content/FeedEntryContextMenu.tsx
 msgid "Go to {0}"
@@ -472,6 +484,10 @@ msgstr ""
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "If not empty, an expression evaluating to 'true' or 'false'. If false, new entries for this feed will be marked as read automatically."
 msgstr "Hvis det ikke er tomt, et uttrykk som vurderes til 'sant' eller 'usant'. "
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "If not empty, an expression evaluating to 'true' or 'false'. If false, new entries will be marked as read automatically."
+msgstr ""
 
 #: src/components/settings/DisplaySettings.tsx
 msgid "If the entry doesn't entirely fit on the screen"
@@ -1096,6 +1112,10 @@ msgstr "Fjern stjerne"
 msgid "Unsubscribe"
 msgstr "Avslutt abonnementet"
 
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "Use custom filter for this feed"
+msgstr ""
+
 #: src/components/settings/ProfileSettings.tsx
 msgid "User name"
 msgstr "Brukernavn"
@@ -1119,6 +1139,8 @@ msgstr "Nettsted"
 
 #: src/pages/auth/InitialSetupPage.tsx
 msgid "Welcome! This appears to be the first time you're running CommaFeed. Please create an administrator account to get started."
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "When enabled, this feed will use its own filter instead of the global filter"
 msgstr ""
 
 #: src/components/settings/DisplaySettings.tsx

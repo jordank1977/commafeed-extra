@@ -17,6 +17,7 @@ msgstr ""
 msgid "<0>CommaFeed is an open-source project. Sources are hosted on </0><1>GitHub</1>."
 msgstr "<0>CommaFeed is an open-source project. Sources are hosted on </0><1>GitHub</1>."
 
+#: src/components/settings/DisplaySettings.tsx
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "<0>Complete syntax is available </0><1>here</1><2>.</2>"
 msgstr "<0>Complete syntax is available </0><1>here</1><2>.</2>"
@@ -126,6 +127,7 @@ msgstr "Are you sure you want to unsubscribe from <0>{feedName}</0>?"
 msgid "Asc"
 msgstr "Asc"
 
+#: src/components/settings/DisplaySettings.tsx
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Available variables are 'title', 'content', 'url' 'author' and 'categories' and their content is converted to lower case to ease string comparison."
 msgstr "Available variables are 'title', 'content', 'url' 'author' and 'categories' and their content is converted to lower case to ease string comparison."
@@ -231,6 +233,9 @@ msgstr "Confirm password"
 #: src/pages/auth/PasswordResetPage.tsx
 msgid "Confirm Password"
 msgstr "Confirm Password"
+#: src/components/settings/DisplaySettings.tsx
+msgid "Content filtering"
+msgstr "Content filtering"
 
 #: src/components/header/ProfileMenu.tsx
 msgid "Cozy"
@@ -369,6 +374,10 @@ msgstr "Error"
 msgid "Example: {example}."
 msgstr "Example: {example}."
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Example: <0>url.contains('youtube') or (author eq 'athou' and title.contains('github'))</0>."
+msgstr "Example: <0>url.contains('youtube') or (author eq 'athou' and title.contains('github'))</0>."
+
 #: src/components/header/ProfileMenu.tsx
 msgid "Expanded"
 msgstr "Expanded"
@@ -436,6 +445,10 @@ msgstr "Generate new API key"
 msgid "Generated feed url"
 msgstr "Generated feed url"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Global filter expression"
+msgstr "Global filter expression"
+
 #. placeholder {0}: truncate(props.entry.feedName, 30)
 #: src/components/content/FeedEntryContextMenu.tsx
 msgid "Go to {0}"
@@ -472,6 +485,10 @@ msgstr "Id"
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "If not empty, an expression evaluating to 'true' or 'false'. If false, new entries for this feed will be marked as read automatically."
 msgstr "If not empty, an expression evaluating to 'true' or 'false'. If false, new entries for this feed will be marked as read automatically."
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "If not empty, an expression evaluating to 'true' or 'false'. If false, new entries will be marked as read automatically."
+msgstr "If not empty, an expression evaluating to 'true' or 'false'. If false, new entries will be marked as read automatically."
 
 #: src/components/settings/DisplaySettings.tsx
 msgid "If the entry doesn't entirely fit on the screen"
@@ -1096,6 +1113,10 @@ msgstr "Unstar"
 msgid "Unsubscribe"
 msgstr "Unsubscribe"
 
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "Use custom filter for this feed"
+msgstr "Use custom filter for this feed"
+
 #: src/components/settings/ProfileSettings.tsx
 msgid "User name"
 msgstr "User name"
@@ -1120,6 +1141,9 @@ msgstr "Website"
 #: src/pages/auth/InitialSetupPage.tsx
 msgid "Welcome! This appears to be the first time you're running CommaFeed. Please create an administrator account to get started."
 msgstr "Welcome! This appears to be the first time you're running CommaFeed. Please create an administrator account to get started."
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "When enabled, this feed will use its own filter instead of the global filter"
+msgstr "When enabled, this feed will use its own filter instead of the global filter"
 
 #: src/components/settings/DisplaySettings.tsx
 msgid "Yellow"

@@ -17,6 +17,7 @@ msgstr ""
 msgid "<0>CommaFeed is an open-source project. Sources are hosted on </0><1>GitHub</1>."
 msgstr "<0>CommaFeed是一个开源项目，源码托管在 </0><1>GitHub</1>。"
 
+#: src/components/settings/DisplaySettings.tsx
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "<0>Complete syntax is available </0><1>here</1><2>.</2>"
 msgstr "<0>可以使用完整的语法 </0><1>详情</1><2>.</2>"
@@ -126,6 +127,7 @@ msgstr "您确定要退订 <0>{feedName}</0> 吗？"
 msgid "Asc"
 msgstr "升序"
 
+#: src/components/settings/DisplaySettings.tsx
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Available variables are 'title', 'content', 'url' 'author' and 'categories' and their content is converted to lower case to ease string comparison."
 msgstr "可用变量为'title'、'content'、'url'、'author'和'categories'，它们的内容被转换为小写以方便字符串比较。"
@@ -231,6 +233,9 @@ msgstr "确认密码"
 #: src/pages/auth/PasswordResetPage.tsx
 msgid "Confirm Password"
 msgstr "确认密码"
+#: src/components/settings/DisplaySettings.tsx
+msgid "Content filtering"
+msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
 msgid "Cozy"
@@ -369,6 +374,10 @@ msgstr "错误"
 msgid "Example: {example}."
 msgstr "示例：{示例}。"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Example: <0>url.contains('youtube') or (author eq 'athou' and title.contains('github'))</0>."
+msgstr ""
+
 #: src/components/header/ProfileMenu.tsx
 msgid "Expanded"
 msgstr "展开"
@@ -436,6 +445,10 @@ msgstr "生成新的 API 密钥"
 msgid "Generated feed url"
 msgstr "生成信息流网址"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Global filter expression"
+msgstr ""
+
 #. placeholder {0}: truncate(props.entry.feedName, 30)
 #: src/components/content/FeedEntryContextMenu.tsx
 msgid "Go to {0}"
@@ -472,6 +485,10 @@ msgstr "序号"
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "If not empty, an expression evaluating to 'true' or 'false'. If false, new entries for this feed will be marked as read automatically."
 msgstr "如果不为空，则表达式的计算结果为“真”或“假”。如果为“假”，则此信息流的新条目将自动标记为已读。"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "If not empty, an expression evaluating to 'true' or 'false'. If false, new entries will be marked as read automatically."
+msgstr ""
 
 #: src/components/settings/DisplaySettings.tsx
 msgid "If the entry doesn't entirely fit on the screen"
@@ -1096,6 +1113,10 @@ msgstr "取消星标"
 msgid "Unsubscribe"
 msgstr "取消订阅"
 
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "Use custom filter for this feed"
+msgstr ""
+
 #: src/components/settings/ProfileSettings.tsx
 msgid "User name"
 msgstr "用户名"
@@ -1120,6 +1141,9 @@ msgstr "网站"
 #: src/pages/auth/InitialSetupPage.tsx
 msgid "Welcome! This appears to be the first time you're running CommaFeed. Please create an administrator account to get started."
 msgstr "欢迎！当前页仅当您第一次使用CommaFeed时出现，请创建一个管理员帐号以开始使用。"
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "When enabled, this feed will use its own filter instead of the global filter"
+msgstr ""
 
 #: src/components/settings/DisplaySettings.tsx
 msgid "Yellow"
