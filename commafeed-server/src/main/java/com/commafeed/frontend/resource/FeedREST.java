@@ -435,6 +435,12 @@ public class FeedREST {
 
 		if (req.getFilterOverrideEnabled() != null) {
 			subscription.setFilterOverrideEnabled(req.getFilterOverrideEnabled());
+		} else if (StringUtils.isNotBlank(req.getFilter())) {
+			// Automatically enable override when setting a filter for backwards compatibility
+			subscription.setFilterOverrideEnabled(true);
+		} else if (StringUtils.isBlank(req.getFilter())) {
+			// Automatically disable override when clearing the filter
+			subscription.setFilterOverrideEnabled(false);
 		}
 
 		if (StringUtils.isNotBlank(req.getName())) {
