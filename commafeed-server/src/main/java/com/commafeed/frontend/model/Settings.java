@@ -75,6 +75,12 @@ public class Settings implements Serializable {
 	@Schema(description = "disable pull to refresh", required = true)
 	private boolean disablePullToRefresh;
 
+	@Schema(description = "truncate articles to first paragraph", required = true)
+	private boolean truncateArticlesToFirstParagraph;
+
+	@Schema(description = "truncate articles to a specific character length", required = true)
+	private int truncateArticlesLength;
+
 	@Schema(description = "primary theme color to use in the UI")
 	private String primaryColor;
 

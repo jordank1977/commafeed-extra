@@ -124,6 +124,8 @@ public class UserREST {
 			s.setUnreadCountTitle(settings.isUnreadCountTitle());
 			s.setUnreadCountFavicon(settings.isUnreadCountFavicon());
 			s.setDisablePullToRefresh(settings.isDisablePullToRefresh());
+			s.setTruncateArticlesToFirstParagraph(settings.isTruncateArticlesToFirstParagraph());
+			s.setTruncateArticlesLength(settings.getTruncateArticlesLength());
 			s.setPrimaryColor(settings.getPrimaryColor());
 		} else {
 			s.setReadingMode(ReadingMode.UNREAD);
@@ -149,9 +151,22 @@ public class UserREST {
 			s.setMarkAllAsReadNavigateToNextUnread(false);
 			s.setCustomContextMenu(true);
 			s.setMobileFooter(false);
+			s.setDisablePullToRefresh(true);
+			s.setTruncateArticlesToFirstParagraph(false);
+			s.setTruncateArticlesLength(1000);
+>>>>>>> bcaddace (Fix truncation settings persistence)
+		}
 			s.setUnreadCountTitle(false);
 			s.setUnreadCountFavicon(true);
 			s.setDisablePullToRefresh(false);
+			s.setTruncateArticlesToFirstParagraph(false);
+			s.setTruncateArticlesLength(1000);
+		}
+=======
+			s.setDisablePullToRefresh(true);
+			s.setTruncateArticlesToFirstParagraph(false);
+			s.setTruncateArticlesLength(1000);
+>>>>>>> bcaddace (Fix truncation settings persistence)
 		}
 		return s;
 	}
@@ -188,6 +203,8 @@ public class UserREST {
 		s.setUnreadCountTitle(settings.isUnreadCountTitle());
 		s.setUnreadCountFavicon(settings.isUnreadCountFavicon());
 		s.setDisablePullToRefresh(settings.isDisablePullToRefresh());
+		s.setTruncateArticlesToFirstParagraph(settings.isTruncateArticlesToFirstParagraph());
+		s.setTruncateArticlesLength(settings.getTruncateArticlesLength());
 		s.setPrimaryColor(settings.getPrimaryColor());
 
 		s.setEmail(settings.getSharingSettings().isEmail());
