@@ -1,4 +1,4 @@
-# CommaFeed - Enhanced Fork
+# CommaFeed - BongoFeed
 
 A fork of [CommaFeed](https://github.com/Athou/commafeed) with additional features for improved reading experience and content management.
 
