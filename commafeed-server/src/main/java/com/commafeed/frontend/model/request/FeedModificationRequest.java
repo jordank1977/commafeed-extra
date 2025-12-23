@@ -31,4 +31,7 @@ public class FeedModificationRequest implements Serializable {
 	@Size(max = 4096)
 	private String filter;
 
+	@Schema(description = "whether this feed uses a custom filter instead of the global filter")
+	private Boolean filterOverrideEnabled;
+
 }

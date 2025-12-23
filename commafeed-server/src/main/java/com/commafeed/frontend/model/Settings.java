@@ -84,6 +84,9 @@ public class Settings implements Serializable {
 	@Schema(description = "primary theme color to use in the UI")
 	private String primaryColor;
 
+	@Schema(description = "global filter expression applied to all feeds")
+	private String globalFilter;
+
 	@Schema(description = "sharing settings", required = true)
 	private SharingSettings sharingSettings = new SharingSettings();
 

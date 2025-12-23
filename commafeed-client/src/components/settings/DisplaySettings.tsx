@@ -1,7 +1,20 @@
 import { msg } from "@lingui/core/macro"
 import { useLingui } from "@lingui/react"
 import { Trans } from "@lingui/react/macro"
-import { Box, Divider, Group, NumberInput, Radio, Select, type SelectProps, SimpleGrid, Stack, Switch } from "@mantine/core"
+import {
+    Box,
+    Code,
+    Divider,
+    Group,
+    NumberInput,
+    Radio,
+    Select,
+    type SelectProps,
+    SimpleGrid,
+    Stack,
+    Switch,
+    TextInput,
+} from "@mantine/core"
 import type { ComboboxData } from "@mantine/core/lib/components/Combobox/Combobox.types"
 import type { ReactNode } from "react"
 import { Constants } from "@/app/constants"
@@ -12,6 +25,7 @@ import {
     changeDisablePullToRefresh,
     changeEntriesToKeepOnTopWhenScrolling,
     changeExternalLinkIconDisplayMode,
+    changeGlobalFilter,
     changeLanguage,
     changeMarkAllAsReadConfirmation,
     changeMarkAllAsReadNavigateToUnread,
@@ -54,6 +68,7 @@ export function DisplaySettings() {
     const truncateArticlesLength = useAppSelector(state => state.user.settings?.truncateArticlesLength ?? TRUNCATE_ARTICLES_DEFAULT)
     const sharingSettings = useAppSelector(state => state.user.settings?.sharingSettings)
     const primaryColor = useAppSelector(state => state.user.settings?.primaryColor) || Constants.theme.defaultPrimaryColor
+    const globalFilter = useAppSelector(state => state.user.settings?.globalFilter)
     const { _ } = useLingui()
     const dispatch = useAppDispatch()
 
@@ -216,6 +231,48 @@ export function DisplaySettings() {
                     step={100}
                 />
             )}
+
+            <Divider label={<Trans>Content filtering</Trans>} labelPosition="center" />
+
+            <TextInput
+                label={<Trans>Global filter expression</Trans>}
+                description={
+                    <div>
+                        <div>
+                            <Trans>
+                                If not empty, an expression evaluating to 'true' or 'false'. If false, new entries will be marked as read
+                                automatically.
+                            </Trans>
+                        </div>
+                        <div>
+                            <Trans>
+                                Available variables are 'title', 'content', 'url' 'author' and 'categories' and their content is converted
+                                to lower case to ease string comparison.
+                            </Trans>
+                        </div>
+                        <div>
+                            <Trans>
+                                Example: <Code>url.contains('youtube') or (author eq 'athou' and title.contains('github'))</Code>.
+                            </Trans>
+                        </div>
+                        <div>
+                            <Trans>
+                                <span>Complete syntax is available </span>
+                                <a
+                                    href="https://commons.apache.org/proper/commons-jexl/reference/syntax.html"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    here
+                                </a>
+                                <span>.</span>
+                            </Trans>
+                        </div>
+                    </div>
+                }
+                value={globalFilter || ""}
+                onChange={async e => await dispatch(changeGlobalFilter(e.currentTarget.value))}
+            />
 
             <Divider label={<Trans>Browser tab</Trans>} labelPosition="center" />
 

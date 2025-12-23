@@ -1,5 +1,20 @@
 import { Trans } from "@lingui/react/macro"
-import { Anchor, Box, Button, Code, Container, Divider, Group, Input, NumberInput, Stack, Text, TextInput, Title } from "@mantine/core"
+import {
+    Anchor,
+    Box,
+    Button,
+    Code,
+    Container,
+    Divider,
+    Group,
+    Input,
+    NumberInput,
+    Stack,
+    Switch,
+    Text,
+    TextInput,
+    Title,
+} from "@mantine/core"
 import { useForm } from "@mantine/form"
 import { openConfirmModal } from "@mantine/modals"
 import { useEffect } from "react"
@@ -158,9 +173,17 @@ export function FeedDetailsPage() {
                     <TextInput label={<Trans>Name</Trans>} {...form.getInputProps("name")} required />
                     <CategorySelect label={<Trans>Category</Trans>} {...form.getInputProps("categoryId")} clearable />
                     <NumberInput label={<Trans>Position</Trans>} {...form.getInputProps("position")} required min={0} />
+
+                    <Switch
+                        label={<Trans>Use custom filter for this feed</Trans>}
+                        description={<Trans>When enabled, this feed will use its own filter instead of the global filter</Trans>}
+                        {...form.getInputProps("filterOverrideEnabled", { type: "checkbox" })}
+                    />
+
                     <TextInput
                         label={<Trans>Filtering expression</Trans>}
                         description={<FilteringExpressionDescription />}
+                        disabled={!form.values.filterOverrideEnabled}
                         {...form.getInputProps("filter")}
                     />
 

@@ -433,6 +433,10 @@ public class FeedREST {
 		FeedSubscription subscription = feedSubscriptionDAO.findById(user, req.getId());
 		subscription.setFilter(req.getFilter());
 
+		if (req.getFilterOverrideEnabled() != null) {
+			subscription.setFilterOverrideEnabled(req.getFilterOverrideEnabled());
+		}
+
 		if (StringUtils.isNotBlank(req.getName())) {
 			subscription.setTitle(req.getName());
 		}

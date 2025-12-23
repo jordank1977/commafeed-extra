@@ -127,6 +127,7 @@ public class UserREST {
 			s.setTruncateArticlesToFirstParagraph(settings.isTruncateArticlesToFirstParagraph());
 			s.setTruncateArticlesLength(settings.getTruncateArticlesLength());
 			s.setPrimaryColor(settings.getPrimaryColor());
+			s.setGlobalFilter(settings.getGlobalFilter());
 		} else {
 			s.setReadingMode(ReadingMode.UNREAD);
 			s.setReadingOrder(ReadingOrder.DESC);
@@ -206,6 +207,7 @@ public class UserREST {
 		s.setTruncateArticlesToFirstParagraph(settings.isTruncateArticlesToFirstParagraph());
 		s.setTruncateArticlesLength(settings.getTruncateArticlesLength());
 		s.setPrimaryColor(settings.getPrimaryColor());
+		s.setGlobalFilter(settings.getGlobalFilter());
 
 		s.setEmail(settings.getSharingSettings().isEmail());
 		s.setGmail(settings.getSharingSettings().isGmail());

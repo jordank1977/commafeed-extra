@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+	<changeSet id="add-global-filter-setting" author="athou">
+		<addColumn tableName="USERSETTINGS">
+			<column name="global_filter" type="VARCHAR(4096)">
+				<constraints nullable="true" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="add-filter-override-enabled" author="athou">
+		<addColumn tableName="FEEDSUBSCRIPTIONS">
+			<column name="filter_override_enabled" type="BOOLEAN" valueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="enable-override-for-existing-filters" author="athou">
+		<update tableName="FEEDSUBSCRIPTIONS">
+			<column name="filter_override_enabled" valueBoolean="true" />
+			<where>filtering_expression IS NOT NULL AND filtering_expression != ''</where>
+		</update>
+	</changeSet>
+
+</databaseChangeLog>

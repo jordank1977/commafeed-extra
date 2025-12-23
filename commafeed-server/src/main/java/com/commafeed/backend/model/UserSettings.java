@@ -135,6 +135,9 @@ public class UserSettings extends AbstractModel {
 	private boolean truncateArticlesToFirstParagraph;
 	private int truncateArticlesLength;
 
+	@Column(name = "global_filter", length = 4096)
+	private String globalFilter;
+
 	private boolean email;
 	private boolean gmail;
 	private boolean facebook;

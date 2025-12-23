@@ -62,6 +62,9 @@ public class Subscription implements Serializable {
 	@Schema(description = "JEXL string evaluated on new entries to mark them as read if they do not match")
 	private String filter;
 
+	@Schema(description = "whether this feed uses a custom filter instead of the global filter")
+	private boolean filterOverrideEnabled;
+
 	public static Subscription build(FeedSubscription subscription, UnreadCount unreadCount) {
 		FeedCategory category = subscription.getCategory();
 		Feed feed = subscription.getFeed();
@@ -81,6 +84,7 @@ public class Subscription implements Serializable {
 		sub.setNewestItemTime(unreadCount.getNewestItemTime());
 		sub.setCategoryId(category == null ? null : String.valueOf(category.getId()));
 		sub.setFilter(subscription.getFilter());
+		sub.setFilterOverrideEnabled(subscription.isFilterOverrideEnabled());
 		return sub;
 	}
 

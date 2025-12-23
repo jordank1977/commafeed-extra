@@ -7,6 +7,7 @@ import {
     changeDisablePullToRefresh,
     changeEntriesToKeepOnTopWhenScrolling,
     changeExternalLinkIconDisplayMode,
+    changeGlobalFilter,
     changeLanguage,
     changeMarkAllAsReadConfirmation,
     changeMarkAllAsReadNavigateToUnread,
@@ -153,6 +154,10 @@ export const userSlice = createSlice({
         builder.addCase(changePrimaryColor.pending, (state, action) => {
             if (!state.settings) return
             state.settings.primaryColor = action.meta.arg
+        })
+        builder.addCase(changeGlobalFilter.pending, (state, action) => {
+            if (!state.settings) return
+            state.settings.globalFilter = action.meta.arg
         })
         builder.addCase(changeSharingSetting.pending, (state, action) => {
             if (!state.settings) return

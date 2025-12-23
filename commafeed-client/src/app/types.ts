@@ -28,6 +28,7 @@ export interface Subscription {
     position: number
     newestItemTime?: number
     filter?: string
+    filterOverrideEnabled?: boolean
 }
 
 export interface Category {
@@ -109,6 +110,7 @@ export interface FeedModificationRequest {
     categoryId?: string
     position?: number
     filter?: string
+    filterOverrideEnabled?: boolean
 }
 
 export interface GetEntriesRequest {
@@ -271,6 +273,7 @@ export interface Settings {
     truncateArticlesToFirstParagraph: boolean
     truncateArticlesLength: number
     primaryColor?: string
+    globalFilter?: string
     sharingSettings: SharingSettings
 }
 

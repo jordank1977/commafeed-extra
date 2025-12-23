@@ -5,10 +5,13 @@ import java.util.List;
 
 import jakarta.inject.Singleton;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.commafeed.backend.Digests;
 import com.commafeed.backend.dao.FeedEntryDAO;
 import com.commafeed.backend.dao.FeedEntryStatusDAO;
 import com.commafeed.backend.dao.FeedSubscriptionDAO;
+import com.commafeed.backend.dao.UserSettingsDAO;
 import com.commafeed.backend.feed.FeedEntryKeyword;
 import com.commafeed.backend.feed.FeedUtils;
 import com.commafeed.backend.feed.parser.FeedParserResult.Entry;
@@ -17,6 +20,7 @@ import com.commafeed.backend.model.FeedEntry;
 import com.commafeed.backend.model.FeedEntryStatus;
 import com.commafeed.backend.model.FeedSubscription;
 import com.commafeed.backend.model.User;
+import com.commafeed.backend.model.UserSettings;
 import com.commafeed.backend.service.FeedEntryFilteringService.FeedEntryFilterException;
 
 import lombok.RequiredArgsConstructor;
@@ -32,6 +36,7 @@ public class FeedEntryService {
 	private final FeedEntryStatusDAO feedEntryStatusDAO;
 	private final FeedEntryContentService feedEntryContentService;
 	private final FeedEntryFilteringService feedEntryFilteringService;
+	private final UserSettingsDAO userSettingsDAO;
 
 	public FeedEntry find(Feed feed, Entry entry) {
 		String guidHash = Digests.sha1Hex(entry.guid());
@@ -54,10 +59,13 @@ public class FeedEntryService {
 
 	public boolean applyFilter(FeedSubscription sub, FeedEntry entry) {
 		boolean matches = true;
+
+		String filterToApply = determineFilterToApply(sub);
+
 		try {
-			matches = feedEntryFilteringService.filterMatchesEntry(sub.getFilter(), entry);
+			matches = feedEntryFilteringService.filterMatchesEntry(filterToApply, entry);
 		} catch (FeedEntryFilterException e) {
-			log.error("could not evaluate filter {}", sub.getFilter(), e);
+			log.error("could not evaluate filter {}", filterToApply, e);
 		}
 
 		if (!matches) {
@@ -67,6 +75,22 @@ public class FeedEntryService {
 		}
 
 		return matches;
+	}
+
+	private String determineFilterToApply(FeedSubscription sub) {
+		// If override is enabled and feed has custom filter, use it
+		if (sub.isFilterOverrideEnabled() && StringUtils.isNotBlank(sub.getFilter())) {
+			return sub.getFilter();
+		}
+
+		// Otherwise, use global filter from user settings
+		UserSettings settings = userSettingsDAO.findByUser(sub.getUser());
+		if (settings != null && StringUtils.isNotBlank(settings.getGlobalFilter())) {
+			return settings.getGlobalFilter();
+		}
+
+		// No filter to apply
+		return null;
 	}
 
 	public void markEntry(User user, Long entryId, boolean read) {

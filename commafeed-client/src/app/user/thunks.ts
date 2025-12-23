@@ -157,6 +157,12 @@ export const changePrimaryColor = createAppAsyncThunk("settings/primaryColor", (
     client.user.saveSettings({ ...settings, primaryColor })
 })
 
+export const changeGlobalFilter = createAppAsyncThunk("settings/globalFilter", (globalFilter: string, thunkApi) => {
+    const { settings } = thunkApi.getState().user
+    if (!settings) return
+    client.user.saveSettings({ ...settings, globalFilter })
+})
+
 export const changeSharingSetting = createAppAsyncThunk(
     "settings/sharingSetting",
     (
