@@ -1,4 +1,4 @@
-import { Box, Flex, Space } from "@mantine/core"
+import { Box } from "@mantine/core"
 import type { Entry } from "@/app/types"
 import { FeedFavicon } from "@/components/content/FeedFavicon"
 import { OpenExternalLink } from "@/components/content/header/OpenExternalLink"
@@ -28,28 +28,29 @@ export function FeedEntryHeader(props: Readonly<FeedEntryHeaderProps>) {
     const { classes } = useStyles({
         read: props.entry.read,
     })
+
+    // Very simplified approach to avoid complex union type errors
     return (
         <Box className="cf-header">
-            <Flex align="flex-start" justify="space-between" className="cf-header-title">
-                <Flex align="flex-start" className={classes.main}>
+            <div className="cf-header-title">
+                <div className={classes.main}>
                     {props.showStarIcon && (
                         <Box ml={-5}>
                             <Star entry={props.entry} />
                         </Box>
                     )}
                     <FeedEntryTitle entry={props.entry} />
-                </Flex>
+                </div>
                 {props.showExternalLinkIcon && <OpenExternalLink entry={props.entry} />}
-            </Flex>
-            <Flex align="center" className="cf-header-subtitle">
+            </div>
+            <div className="cf-header-subtitle">
                 <FeedFavicon url={props.entry.iconUrl} />
-                <Space w={6} />
                 <Box c="dimmed">
                     {props.entry.feedName}
                     <span> · </span>
                     <RelativeDate date={props.entry.date} />
                 </Box>
-            </Flex>
+            </div>
             {props.expanded && (
                 <Box className="cf-header-details">
                     {props.entry.author && <span>by {props.entry.author}</span>}

@@ -89,8 +89,8 @@ export const changeMarkAllAsReadConfirmation = createAppAsyncThunk(
     }
 )
 
-export const changeMarkAllAsReadNavigateToUnread = createAppAsyncThunk(
-    "settings/markAllAsReadNavigateToUnread",
+export const changeMarkAllAsReadNavigateToNextUnread = createAppAsyncThunk(
+    "settings/markAllAsReadNavigateToNextUnread",
     (markAllAsReadNavigateToNextUnread: boolean, thunkApi) => {
         const { settings } = thunkApi.getState().user
         if (!settings) return
@@ -151,6 +151,16 @@ export const changeTruncateArticlesLength = createAppAsyncThunk(
     }
 )
 
+export const changeTruncateArticlesDynamic = createAppAsyncThunk(
+    "settings/truncateArticlesDynamic",
+    (truncateArticlesDynamic: boolean, thunkApi) => {
+        const { settings } = thunkApi.getState().user
+        if (!settings) return
+        client.user.saveSettings({ ...settings, truncateArticlesDynamic })
+        thunkApi.dispatch(reloadEntries())
+    }
+)
+
 export const changePrimaryColor = createAppAsyncThunk("settings/primaryColor", (primaryColor: string, thunkApi) => {
     const { settings } = thunkApi.getState().user
     if (!settings) return
@@ -174,12 +184,26 @@ export const changeSharingSetting = createAppAsyncThunk(
     ) => {
         const { settings } = thunkApi.getState().user
         if (!settings) return
+        // Ensure we have a valid sharingSettings object
+        const updatedSharingSettings = settings.sharingSettings
+            ? {
+                  ...settings.sharingSettings,
+                  [sharingSetting.site]: sharingSetting.value,
+              }
+            : {
+                  email: false,
+                  gmail: false,
+                  facebook: false,
+                  twitter: false,
+                  tumblr: false,
+                  pocket: false,
+                  instapaper: false,
+                  buffer: false,
+                  [sharingSetting.site]: sharingSetting.value,
+              }
         client.user.saveSettings({
             ...settings,
-            sharingSettings: {
-                ...settings.sharingSettings,
-                [sharingSetting.site]: sharingSetting.value,
-            },
+            sharingSettings: updatedSharingSettings,
         })
     }
 )

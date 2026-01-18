@@ -1,5 +1,6 @@
 import { msg } from "@lingui/core/macro"
 import { useLingui } from "@lingui/react"
+
 import { Trans } from "@lingui/react/macro"
 import {
     Box,
@@ -28,7 +29,7 @@ import {
     changeGlobalFilter,
     changeLanguage,
     changeMarkAllAsReadConfirmation,
-    changeMarkAllAsReadNavigateToUnread,
+    changeMarkAllAsReadNavigateToNextUnread,
     changeMobileFooter,
     changePrimaryColor,
     changeScrollMarks,
@@ -37,6 +38,7 @@ import {
     changeSharingSetting,
     changeShowRead,
     changeStarIconDisplayMode,
+    changeTruncateArticlesDynamic,
     changeTruncateArticlesLength,
     changeTruncateArticlesToFirstParagraph,
     changeUnreadCountFavicon,
@@ -65,6 +67,7 @@ export function DisplaySettings() {
     const unreadCountFavicon = useAppSelector(state => state.user.settings?.unreadCountFavicon)
     const disablePullToRefresh = useAppSelector(state => state.user.settings?.disablePullToRefresh)
     const truncateArticlesToFirstParagraph = useAppSelector(state => state.user.settings?.truncateArticlesToFirstParagraph)
+    const truncateArticlesDynamic = useAppSelector(state => state.user.settings?.truncateArticlesDynamic)
     const truncateArticlesLength = useAppSelector(state => state.user.settings?.truncateArticlesLength ?? TRUNCATE_ARTICLES_DEFAULT)
     const sharingSettings = useAppSelector(state => state.user.settings?.sharingSettings)
     const primaryColor = useAppSelector(state => state.user.settings?.primaryColor) || Constants.theme.defaultPrimaryColor
@@ -157,7 +160,7 @@ export function DisplaySettings() {
             <Switch
                 label={<Trans>Navigate to the next category/feed with unread entries when marking all entries as read</Trans>}
                 checked={markAllAsReadNavigateToNextUnread}
-                onChange={async e => await dispatch(changeMarkAllAsReadNavigateToUnread(e.currentTarget.checked))}
+                onChange={async e => await dispatch(changeMarkAllAsReadNavigateToNextUnread(e.currentTarget.checked))}
             />
 
             <Switch
@@ -220,7 +223,7 @@ export function DisplaySettings() {
                     description={_(
                         msg`Number of characters to show when articles are truncated. Enter value between ${TRUNCATE_ARTICLES_MIN}-${TRUNCATE_ARTICLES_MAX} (default ${TRUNCATE_ARTICLES_DEFAULT}).`
                     )}
-                    value={truncateArticlesLength}
+                    value={truncateArticlesLength || TRUNCATE_ARTICLES_DEFAULT}
                     onChange={async value => {
                         if (typeof value === "number" && value >= TRUNCATE_ARTICLES_MIN) {
                             await dispatch(changeTruncateArticlesLength(value))
@@ -231,6 +234,13 @@ export function DisplaySettings() {
                     step={100}
                 />
             )}
+
+            <Switch
+                label={<Trans>Truncate articles (Dynamic)</Trans>}
+                description={<Trans>Use dynamic truncation length based on content.</Trans>}
+                checked={truncateArticlesDynamic}
+                onChange={async e => await dispatch(changeTruncateArticlesDynamic(e.currentTarget.checked))}
+            />
 
             <Divider label={<Trans>Content filtering</Trans>} labelPosition="center" />
 

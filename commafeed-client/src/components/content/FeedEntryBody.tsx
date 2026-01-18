@@ -12,6 +12,7 @@ export interface FeedEntryBodyProps {
 export function FeedEntryBody(props: Readonly<FeedEntryBodyProps>) {
     const search = useAppSelector(state => state.entries.search)
     const truncateToFirstParagraph = useAppSelector(state => state.user.settings?.truncateArticlesToFirstParagraph ?? false)
+    const truncateArticlesDynamic = useAppSelector(state => state.user.settings?.truncateArticlesDynamic ?? false)
     const truncationLength = useAppSelector(state => state.user.settings?.truncateArticlesLength ?? 1000)
     return (
         <Box>
@@ -21,6 +22,7 @@ export function FeedEntryBody(props: Readonly<FeedEntryBodyProps>) {
                     highlight={search}
                     truncateToFirstParagraph={truncateToFirstParagraph}
                     truncationLength={truncationLength}
+                    truncateArticlesDynamic={truncateArticlesDynamic}
                 />
             </Box>
             {props.entry.enclosureType && props.entry.enclosureUrl && (

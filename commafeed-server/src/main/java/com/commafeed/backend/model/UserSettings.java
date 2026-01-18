@@ -126,7 +126,7 @@ public class UserSettings extends AbstractModel {
 	private String primaryColor;
 
 	private boolean markAllAsReadConfirmation;
-	private boolean markAllAsReadNavigateToNextUnread;
+	private boolean markAllAsReadNavigateToUnread;
 	private boolean customContextMenu;
 	private boolean mobileFooter;
 	private boolean unreadCountTitle;

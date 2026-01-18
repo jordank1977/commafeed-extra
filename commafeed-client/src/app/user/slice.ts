@@ -1,5 +1,6 @@
 import { t } from "@lingui/core/macro"
 import { showNotification } from "@mantine/notifications"
+
 import { createSlice, isAnyOf, type PayloadAction } from "@reduxjs/toolkit"
 import type { LocalSettings, Settings, UserModel, ViewMode } from "@/app/types"
 import {
@@ -10,7 +11,7 @@ import {
     changeGlobalFilter,
     changeLanguage,
     changeMarkAllAsReadConfirmation,
-    changeMarkAllAsReadNavigateToUnread,
+    changeMarkAllAsReadNavigateToNextUnread,
     changeMobileFooter,
     changePrimaryColor,
     changeReadingMode,
@@ -21,6 +22,7 @@ import {
     changeSharingSetting,
     changeShowRead,
     changeStarIconDisplayMode,
+    changeTruncateArticlesDynamic,
     changeTruncateArticlesLength,
     changeTruncateArticlesToFirstParagraph,
     changeUnreadCountFavicon,
@@ -119,7 +121,7 @@ export const userSlice = createSlice({
             if (!state.settings) return
             state.settings.markAllAsReadConfirmation = action.meta.arg
         })
-        builder.addCase(changeMarkAllAsReadNavigateToUnread.pending, (state, action) => {
+        builder.addCase(changeMarkAllAsReadNavigateToNextUnread.pending, (state, action) => {
             if (!state.settings) return
             state.settings.markAllAsReadNavigateToNextUnread = action.meta.arg
         })
@@ -151,6 +153,10 @@ export const userSlice = createSlice({
             if (!state.settings) return
             state.settings.truncateArticlesLength = action.meta.arg
         })
+        builder.addCase(changeTruncateArticlesDynamic.pending, (state, action) => {
+            if (!state.settings) return
+            state.settings.truncateArticlesDynamic = action.meta.arg
+        })
         builder.addCase(changePrimaryColor.pending, (state, action) => {
             if (!state.settings) return
             state.settings.primaryColor = action.meta.arg
@@ -161,7 +167,9 @@ export const userSlice = createSlice({
         })
         builder.addCase(changeSharingSetting.pending, (state, action) => {
             if (!state.settings) return
-            state.settings.sharingSettings[action.meta.arg.site] = action.meta.arg.value
+            if (state.settings.sharingSettings) {
+                state.settings.sharingSettings[action.meta.arg.site] = action.meta.arg.value
+            }
         })
 
         builder.addMatcher(
@@ -175,7 +183,7 @@ export const userSlice = createSlice({
                 changeStarIconDisplayMode.fulfilled,
                 changeExternalLinkIconDisplayMode.fulfilled,
                 changeMarkAllAsReadConfirmation.fulfilled,
-                changeMarkAllAsReadNavigateToUnread.fulfilled,
+                changeMarkAllAsReadNavigateToNextUnread.fulfilled,
                 changeCustomContextMenu.fulfilled,
                 changeMobileFooter.fulfilled,
                 changeUnreadCountTitle.fulfilled,
@@ -183,6 +191,7 @@ export const userSlice = createSlice({
                 changeDisablePullToRefresh.fulfilled,
                 changeTruncateArticlesToFirstParagraph.fulfilled,
                 changeTruncateArticlesLength.fulfilled,
+                changeTruncateArticlesDynamic.fulfilled,
                 changePrimaryColor.fulfilled,
                 changeSharingSetting.fulfilled
             ),

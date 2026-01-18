@@ -42,8 +42,8 @@ export function CustomCodeSettings() {
     useEffect(() => {
         if (!settings) return
         setValues({
-            customCss: settings.customCss,
-            customJs: settings.customJs,
+            customCss: settings.customCss ?? "",
+            customJs: settings.customJs ?? "",
         })
     }, [setValues, settings])
 

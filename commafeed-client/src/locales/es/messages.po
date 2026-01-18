@@ -1087,6 +1087,10 @@ msgid "Truncate articles"
 msgstr ""
 
 #: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles (Dynamic)"
+msgstr ""
+
+#: src/components/settings/DisplaySettings.tsx
 msgid "Truncation length"
 msgstr ""
 
@@ -1117,6 +1121,10 @@ msgstr "Cancelar suscripción"
 msgid "Use custom filter for this feed"
 msgstr ""
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Use dynamic truncation length based on content."
+msgstr ""
+
 #: src/components/settings/ProfileSettings.tsx
 msgid "User name"
 msgstr "Nombre de usuario"
@@ -1140,6 +1148,10 @@ msgstr "Sitio web"
 
 #: src/pages/auth/InitialSetupPage.tsx
 msgid "Welcome! This appears to be the first time you're running CommaFeed. Please create an administrator account to get started."
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "When enabled, this feed will use its own filter instead of the global filter"
+msgstr ""
+
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "When enabled, this feed will use its own filter instead of the global filter"
 msgstr ""

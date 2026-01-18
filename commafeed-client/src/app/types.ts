@@ -272,9 +272,10 @@ export interface Settings {
     disablePullToRefresh: boolean
     truncateArticlesToFirstParagraph: boolean
     truncateArticlesLength: number
+    truncateArticlesDynamic?: boolean
     primaryColor?: string
     globalFilter?: string
-    sharingSettings: SharingSettings
+    sharingSettings?: SharingSettings
 }
 
 export interface LocalSettings {

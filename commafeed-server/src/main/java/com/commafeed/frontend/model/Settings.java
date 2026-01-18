@@ -58,7 +58,7 @@ public class Settings implements Serializable {
 	private boolean markAllAsReadConfirmation;
 
 	@Schema(description = "navigate to the next unread category or feed after marking all entries as read", required = true)
-	private boolean markAllAsReadNavigateToNextUnread;
+	private boolean markAllAsReadNavigateToUnread;
 
 	@Schema(description = "show commafeed's own context menu on right click", required = true)
 	private boolean customContextMenu;

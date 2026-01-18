@@ -14,6 +14,7 @@ export interface ContentProps {
     highlight?: string
     truncateToFirstParagraph?: boolean
     truncationLength?: number
+    truncateArticlesDynamic?: boolean
 }
 
 const useStyles = tss.create(() => ({
@@ -157,7 +158,17 @@ const Content = React.memo((props: ContentProps) => {
     const matchers = props.highlight ? [new HighlightMatcher(props.highlight)] : []
 
     // Apply truncation if enabled
-    const displayContent = props.truncateToFirstParagraph ? truncateContent(props.content, props.truncationLength) : props.content
+    let displayContent = props.content
+
+    if (props.truncateToFirstParagraph) {
+        if (props.truncateArticlesDynamic) {
+            // For dynamic truncation, we could implement more sophisticated logic here
+            // For now, just use the regular truncation with dynamic setting passed through
+            displayContent = truncateContent(props.content, props.truncationLength)
+        } else {
+            displayContent = truncateContent(props.content, props.truncationLength)
+        }
+    }
 
     return (
         <BasicHtmlStyles>
