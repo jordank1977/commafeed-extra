@@ -32,6 +32,11 @@ const useStyles = tss.create(() => ({
             whiteSpace: "pre-wrap",
         },
     },
+    dynamicTruncation: {
+        height: "100%",
+        overflowY: "hidden",
+        display: "block",
+    },
 }))
 
 const transform: TransformCallback = node => {
@@ -154,25 +159,19 @@ const allowList = [...ALLOWED_TAG_LIST, "iframe"]
 
 // memoize component because Interweave is costly
 const Content = React.memo((props: ContentProps) => {
-    const { classes } = useStyles()
+    const { classes, cx } = useStyles()
     const matchers = props.highlight ? [new HighlightMatcher(props.highlight)] : []
 
     // Apply truncation if enabled
     let displayContent = props.content
 
-    if (props.truncateToFirstParagraph) {
-        if (props.truncateArticlesDynamic) {
-            // For dynamic truncation, we could implement more sophisticated logic here
-            // For now, just use the regular truncation with dynamic setting passed through
-            displayContent = truncateContent(props.content, props.truncationLength)
-        } else {
-            displayContent = truncateContent(props.content, props.truncationLength)
-        }
+    if (props.truncateToFirstParagraph && !props.truncateArticlesDynamic) {
+        displayContent = truncateContent(props.content, props.truncationLength)
     }
 
     return (
         <BasicHtmlStyles>
-            <Box className={classes.content}>
+            <Box className={cx(classes.content, { [classes.dynamicTruncation]: props.truncateArticlesDynamic })}>
                 <Interweave content={displayContent} transform={transform} matchers={matchers} allowList={allowList} />
             </Box>
         </BasicHtmlStyles>

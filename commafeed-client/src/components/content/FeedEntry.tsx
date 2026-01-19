@@ -1,5 +1,5 @@
 import { Box, Divider, type MantineRadius, type MantineSpacing, Paper } from "@mantine/core"
-import type React from "react"
+import React from "react"
 import { useSwipeable } from "react-swipeable"
 import { Constants } from "@/app/constants"
 import { useAppSelector } from "@/app/store"
@@ -33,72 +33,116 @@ const useStyles = tss
         showSelectionIndicator: boolean
         maxWidth?: number
         fontSizePercentage: number
+        truncateArticlesDynamic?: boolean
     }>()
-    .create(({ theme, colorScheme, read, expanded, viewMode, rtl, showSelectionIndicator, maxWidth, fontSizePercentage }) => {
-        let backgroundColor: string
-        if (colorScheme === "dark") {
-            backgroundColor = read ? "inherit" : theme.colors.dark[5]
-        } else {
-            backgroundColor = read && !expanded ? theme.colors.gray[0] : "inherit"
-        }
+    .create(
+        ({
+            theme,
+            colorScheme,
+            read,
+            expanded,
+            viewMode,
+            rtl,
+            showSelectionIndicator,
+            maxWidth,
+            fontSizePercentage,
+            truncateArticlesDynamic,
+        }) => {
+            let backgroundColor: string
+            if (colorScheme === "dark") {
+                backgroundColor = read ? "inherit" : theme.colors.dark[5]
+            } else {
+                backgroundColor = read && !expanded ? theme.colors.gray[0] : "inherit"
+            }
 
-        let marginY = 10
-        if (viewMode === "title") {
-            marginY = 2
-        } else if (viewMode === "cozy") {
-            marginY = 6
-        }
+            let marginY = 10
+            if (viewMode === "title") {
+                marginY = 2
+            } else if (viewMode === "cozy") {
+                marginY = 6
+            }
 
-        let mobileMarginY = 6
-        if (viewMode === "title") {
-            mobileMarginY = 2
-        } else if (viewMode === "cozy") {
-            mobileMarginY = 4
-        }
+            let mobileMarginY = 6
+            if (viewMode === "title") {
+                mobileMarginY = 2
+            } else if (viewMode === "cozy") {
+                mobileMarginY = 4
+            }
 
-        let backgroundHoverColor = backgroundColor
-        if (!expanded && !read) {
-            backgroundHoverColor = colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[1]
-        }
+            let backgroundHoverColor = backgroundColor
+            if (!expanded && !read) {
+                backgroundHoverColor = colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[1]
+            }
 
-        let paperBorderLeftColor = ""
-        if (showSelectionIndicator) {
-            const borderLeftColor = colorScheme === "dark" ? theme.colors[theme.primaryColor][4] : theme.colors[theme.primaryColor][6]
-            paperBorderLeftColor = `${borderLeftColor} !important`
-        }
+            let paperBorderLeftColor = ""
+            if (showSelectionIndicator) {
+                const borderLeftColor = colorScheme === "dark" ? theme.colors[theme.primaryColor][4] : theme.colors[theme.primaryColor][6]
+                paperBorderLeftColor = `${borderLeftColor} !important`
+            }
 
-        return {
-            paper: {
-                backgroundColor,
-                borderLeftColor: paperBorderLeftColor,
-                marginTop: marginY,
-                marginBottom: marginY,
-                [`@media (max-width: ${Constants.layout.mobileBreakpoint}px)`]: {
-                    marginTop: mobileMarginY,
-                    marginBottom: mobileMarginY,
-                },
-                "@media (hover: hover)": {
-                    "&:hover": {
-                        backgroundColor: backgroundHoverColor,
+            return {
+                paper: {
+                    backgroundColor,
+                    borderLeftColor: paperBorderLeftColor,
+                    marginTop: marginY,
+                    marginBottom: marginY,
+                    ...(expanded && truncateArticlesDynamic
+                        ? {
+                              display: "flex",
+                              flexDirection: "column",
+                              maxHeight: "calc(100dvh - 170px)",
+                              scrollMarginTop: "68px",
+                          }
+                        : {}),
+                    [`@media (max-width: ${Constants.layout.mobileBreakpoint}px)`]: {
+                        marginTop: mobileMarginY,
+                        marginBottom: mobileMarginY,
+                    },
+                    "@media (hover: hover)": {
+                        "&:hover": {
+                            backgroundColor: backgroundHoverColor,
+                        },
                     },
                 },
-            },
-            headerLink: {
-                fontSize: `${fontSizePercentage}%`,
-                color: "inherit",
-                textDecoration: "none",
-            },
-            body: {
-                fontSize: `${fontSizePercentage}%`,
-                direction: rtl ? "rtl" : "ltr",
-                maxWidth: maxWidth ?? "100%",
-            },
+                headerLink: {
+                    fontSize: `${fontSizePercentage}%`,
+                    color: "inherit",
+                    textDecoration: "none",
+                    flex: "0 0 auto",
+                },
+                bodyWrapper: {
+                    ...(expanded && truncateArticlesDynamic
+                        ? {
+                              flex: 1,
+                              minHeight: 0,
+                              display: "flex",
+                              flexDirection: "column",
+                          }
+                        : {}),
+                },
+                body: {
+                    fontSize: `${fontSizePercentage}%`,
+                    direction: rtl ? "rtl" : "ltr",
+                    maxWidth: maxWidth ?? "100%",
+                    ...(expanded && truncateArticlesDynamic
+                        ? {
+                              flex: 1,
+                              minHeight: 0,
+                              overflow: "hidden",
+                          }
+                        : {}),
+                },
+            }
         }
-    })
+    )
 
 export function FeedEntry(props: Readonly<FeedEntryProps>) {
     const viewMode = useAppSelector(state => state.user.localSettings.viewMode)
     const fontSizePercentage = useAppSelector(state => state.user.localSettings.fontSizePercentage)
+    const truncateArticlesDynamic = useAppSelector(state => state.user.settings?.truncateArticlesDynamic)
+    const scrollModeSettings = useAppSelector(state => state.user.settings?.scrollMode)
+    const scrollMode = truncateArticlesDynamic ? "always" : scrollModeSettings
+
     const { classes, cx } = useStyles({
         read: props.entry.read,
         expanded: props.expanded,
@@ -107,6 +151,7 @@ export function FeedEntry(props: Readonly<FeedEntryProps>) {
         showSelectionIndicator: props.showSelectionIndicator,
         maxWidth: props.maxWidth,
         fontSizePercentage,
+        truncateArticlesDynamic,
     })
 
     const externalLinkDisplayMode = useAppSelector(state => state.user.settings?.externalLinkIconDisplayMode)
@@ -139,9 +184,22 @@ export function FeedEntry(props: Readonly<FeedEntryProps>) {
         borderRadius = "xs"
     }
 
+    const paperRef = React.useRef<HTMLDivElement>(null)
+
+    React.useEffect(() => {
+        if (props.expanded && truncateArticlesDynamic) {
+            if (scrollMode !== "never" && paperRef.current) {
+                paperRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
+                paperRef.current.focus({ preventScroll: true })
+            }
+        }
+    }, [props.expanded, truncateArticlesDynamic, scrollMode])
+
     const compactHeader = !props.expanded && (viewMode === "title" || viewMode === "cozy")
     return (
         <Paper
+            ref={paperRef}
+            tabIndex={-1}
             component="article"
             id={Constants.dom.entryId(props.entry)}
             data-id={props.entry.id}
@@ -184,7 +242,7 @@ export function FeedEntry(props: Readonly<FeedEntryProps>) {
                 </Box>
             </a>
             {props.expanded && (
-                <Box px={paddingX} pb={paddingY} onClick={props.onBodyClick}>
+                <Box px={paddingX} pb={paddingY} onClick={props.onBodyClick} className={classes.bodyWrapper}>
                     <Box className={`${classes.body} cf-content`}>
                         <FeedEntryBody entry={props.entry} />
                     </Box>

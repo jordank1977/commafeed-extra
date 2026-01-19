@@ -716,8 +716,8 @@ msgid "On mobile, show action buttons at the bottom of the screen"
 msgstr "On mobile, show action buttons at the bottom of the screen"
 
 #: src/components/settings/DisplaySettings.tsx
-msgid "Only applies to compact, cozy and detailed modes"
-msgstr "Only applies to compact, cozy and detailed modes"
+msgid "Only applies to compact, cozy and detailed modes. Does not apply to Truncate articles (Dynamic)."
+msgstr "Only applies to compact, cozy and detailed modes. Does not apply to Truncate articles (Dynamic)."
 
 #: src/components/settings/DisplaySettings.tsx
 msgid "Only show the first N characters of article content. Click the article link to read more."

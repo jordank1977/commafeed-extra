@@ -126,13 +126,20 @@ public class UserSettings extends AbstractModel {
 	private String primaryColor;
 
 	private boolean markAllAsReadConfirmation;
+
+	@Column(name = "markAllAsReadNavigateToNextUnread")
 	private boolean markAllAsReadNavigateToUnread;
+
 	private boolean customContextMenu;
 	private boolean mobileFooter;
 	private boolean unreadCountTitle;
 	private boolean unreadCountFavicon;
 	private boolean disablePullToRefresh;
 	private boolean truncateArticlesToFirstParagraph;
+
+	@Column(name = "truncate_articles_dynamic")
+	private boolean truncateArticlesDynamic;
+
 	private int truncateArticlesLength;
 
 	@Column(name = "global_filter", length = 4096)

@@ -125,6 +125,7 @@ public class UserREST {
 			s.setUnreadCountFavicon(settings.isUnreadCountFavicon());
 			s.setDisablePullToRefresh(settings.isDisablePullToRefresh());
 			s.setTruncateArticlesToFirstParagraph(settings.isTruncateArticlesToFirstParagraph());
+			s.setTruncateArticlesDynamic(settings.isTruncateArticlesDynamic());
 			s.setTruncateArticlesLength(settings.getTruncateArticlesLength());
 			s.setPrimaryColor(settings.getPrimaryColor());
 			s.setGlobalFilter(settings.getGlobalFilter());
@@ -154,6 +155,7 @@ public class UserREST {
 			s.setMobileFooter(false);
 			s.setDisablePullToRefresh(true);
 			s.setTruncateArticlesToFirstParagraph(false);
+			s.setTruncateArticlesDynamic(false);
 			s.setTruncateArticlesLength(1000);
 >>>>>>> bcaddace (Fix truncation settings persistence)
 		}
@@ -205,6 +207,7 @@ public class UserREST {
 		s.setUnreadCountFavicon(settings.isUnreadCountFavicon());
 		s.setDisablePullToRefresh(settings.isDisablePullToRefresh());
 		s.setTruncateArticlesToFirstParagraph(settings.isTruncateArticlesToFirstParagraph());
+		s.setTruncateArticlesDynamic(settings.isTruncateArticlesDynamic());
 		s.setTruncateArticlesLength(settings.getTruncateArticlesLength());
 		s.setPrimaryColor(settings.getPrimaryColor());
 		s.setGlobalFilter(settings.getGlobalFilter());

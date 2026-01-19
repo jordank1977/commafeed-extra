@@ -19,8 +19,23 @@ const useStyles = tss
         read: boolean
     }>()
     .create(({ colorScheme, read }) => ({
+        headerTitle: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+        },
+        headerSubtitle: {
+            display: "flex",
+            alignItems: "center",
+            marginTop: "2px",
+            gap: "6px",
+        },
         main: {
             fontWeight: colorScheme === "light" && !read ? "bold" : "inherit",
+            display: "flex",
+            alignItems: "center",
+            flexGrow: 1,
+            minWidth: 0,
         },
     }))
 
@@ -32,7 +47,7 @@ export function FeedEntryHeader(props: Readonly<FeedEntryHeaderProps>) {
     // Very simplified approach to avoid complex union type errors
     return (
         <Box className="cf-header">
-            <div className="cf-header-title">
+            <div className={classes.headerTitle}>
                 <div className={classes.main}>
                     {props.showStarIcon && (
                         <Box ml={-5}>
@@ -43,7 +58,7 @@ export function FeedEntryHeader(props: Readonly<FeedEntryHeaderProps>) {
                 </div>
                 {props.showExternalLinkIcon && <OpenExternalLink entry={props.entry} />}
             </div>
-            <div className="cf-header-subtitle">
+            <div className={classes.headerSubtitle}>
                 <FeedFavicon url={props.entry.iconUrl} />
                 <Box c="dimmed">
                     {props.entry.feedName}

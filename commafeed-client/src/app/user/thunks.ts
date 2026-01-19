@@ -136,7 +136,11 @@ export const changeTruncateArticlesToFirstParagraph = createAppAsyncThunk(
     (truncateArticlesToFirstParagraph: boolean, thunkApi) => {
         const { settings } = thunkApi.getState().user
         if (!settings) return
-        client.user.saveSettings({ ...settings, truncateArticlesToFirstParagraph })
+        const newSettings = { ...settings, truncateArticlesToFirstParagraph }
+        if (truncateArticlesToFirstParagraph) {
+            newSettings.truncateArticlesDynamic = false
+        }
+        client.user.saveSettings(newSettings)
         thunkApi.dispatch(reloadEntries())
     }
 )
@@ -156,7 +160,11 @@ export const changeTruncateArticlesDynamic = createAppAsyncThunk(
     (truncateArticlesDynamic: boolean, thunkApi) => {
         const { settings } = thunkApi.getState().user
         if (!settings) return
-        client.user.saveSettings({ ...settings, truncateArticlesDynamic })
+        const newSettings = { ...settings, truncateArticlesDynamic }
+        if (truncateArticlesDynamic) {
+            newSettings.truncateArticlesToFirstParagraph = false
+        }
+        client.user.saveSettings(newSettings)
         thunkApi.dispatch(reloadEntries())
     }
 )

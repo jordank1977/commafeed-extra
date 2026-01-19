@@ -78,6 +78,9 @@ public class Settings implements Serializable {
 	@Schema(description = "truncate articles to first paragraph", required = true)
 	private boolean truncateArticlesToFirstParagraph;
 
+	@Schema(description = "truncate articles dynamically based on viewport height", required = true)
+	private boolean truncateArticlesDynamic;
+
 	@Schema(description = "truncate articles to a specific character length", required = true)
 	private int truncateArticlesLength;
 

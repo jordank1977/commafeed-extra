@@ -715,7 +715,7 @@ msgid "On mobile, show action buttons at the bottom of the screen"
 msgstr "На мобильных устройствах отображать кнопки действий в нижней части экрана"
 
 #: src/components/settings/DisplaySettings.tsx
-msgid "Only applies to compact, cozy and detailed modes"
+msgid "Only applies to compact, cozy and detailed modes. Does not apply to Truncate articles (Dynamic)."
 msgstr ""
 
 #: src/components/settings/DisplaySettings.tsx

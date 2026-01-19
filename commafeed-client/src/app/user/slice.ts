@@ -148,6 +148,9 @@ export const userSlice = createSlice({
         builder.addCase(changeTruncateArticlesToFirstParagraph.pending, (state, action) => {
             if (!state.settings) return
             state.settings.truncateArticlesToFirstParagraph = action.meta.arg
+            if (action.meta.arg) {
+                state.settings.truncateArticlesDynamic = false
+            }
         })
         builder.addCase(changeTruncateArticlesLength.pending, (state, action) => {
             if (!state.settings) return
@@ -156,6 +159,9 @@ export const userSlice = createSlice({
         builder.addCase(changeTruncateArticlesDynamic.pending, (state, action) => {
             if (!state.settings) return
             state.settings.truncateArticlesDynamic = action.meta.arg
+            if (action.meta.arg) {
+                state.settings.truncateArticlesToFirstParagraph = false
+            }
         })
         builder.addCase(changePrimaryColor.pending, (state, action) => {
             if (!state.settings) return
