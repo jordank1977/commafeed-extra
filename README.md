@@ -14,6 +14,14 @@ Truncate long articles to a configurable character limit for faster page loads a
 - **HTML-safe**: Preserves formatting and media content when truncating
 - **Smart handling**: Articles shorter than the limit are displayed in full
 
+### Article Truncation (Dynamic)
+Dynamically truncate articles to fit the viewport height, creating a "card-like" browsing experience.
+
+- **Toggle**: Enable "Truncate articles (Dynamic)" in Display settings (mutually exclusive with standard truncation)
+- **Viewport adaptation**: Automatically adjusts article height to fit within the screen (`100dvh`)
+- **Scroll optimization**: Ensures the article and exactly one furled header below it are visible
+- **Focus mode**: Disables conflicting scroll behaviors (e.g., "Scroll selected entry to the top") for a stable reading flow
+
 ### Global Content Filter
 Apply filtering expressions to **all feeds** from one central location, with per-feed overrides.
 
