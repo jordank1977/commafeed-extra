@@ -17,8 +17,9 @@ export interface FeedEntryHeaderProps {
 const useStyles = tss
     .withParams<{
         read: boolean
+        expanded: boolean
     }>()
-    .create(({ colorScheme, read }) => ({
+    .create(({ colorScheme, read, expanded }) => ({
         headerTitle: {
             display: "flex",
             alignItems: "center",
@@ -36,12 +37,20 @@ const useStyles = tss
             alignItems: "center",
             flexGrow: 1,
             minWidth: 0,
+            ...(!expanded
+                ? {
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                  }
+                : {}),
         },
     }))
 
 export function FeedEntryHeader(props: Readonly<FeedEntryHeaderProps>) {
     const { classes } = useStyles({
         read: props.entry.read,
+        expanded: props.expanded,
     })
 
     // Very simplified approach to avoid complex union type errors

@@ -69,6 +69,15 @@ const useStyles = tss
                 mobileMarginY = 4
             }
 
+            let furledHeight = 71
+            if (viewMode === "cozy") furledHeight = 42
+            else if (viewMode === "title") furledHeight = 34
+
+            // buffer to ensure the bottom gap is visible
+            const bottomBuffer = 6
+            const desktopOffset = 68 + 1.5 * marginY + furledHeight + bottomBuffer
+            const mobileOffset = 68 + 1.5 * mobileMarginY + furledHeight + bottomBuffer
+
             let backgroundHoverColor = backgroundColor
             if (!expanded && !read) {
                 backgroundHoverColor = colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[1]
@@ -90,13 +99,18 @@ const useStyles = tss
                         ? {
                               display: "flex",
                               flexDirection: "column",
-                              maxHeight: "calc(100dvh - 170px)",
+                              maxHeight: `calc(100dvh - ${desktopOffset}px)`,
                               scrollMarginTop: "68px",
                           }
                         : {}),
                     [`@media (max-width: ${Constants.layout.mobileBreakpoint}px)`]: {
                         marginTop: mobileMarginY,
                         marginBottom: mobileMarginY,
+                        ...(expanded && truncateArticlesDynamic
+                            ? {
+                                  maxHeight: `calc(100dvh - ${mobileOffset}px)`,
+                              }
+                            : {}),
                     },
                     "@media (hover: hover)": {
                         "&:hover": {

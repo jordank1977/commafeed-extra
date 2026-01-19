@@ -216,16 +216,19 @@ export const selectEntry = createAppAsyncThunk(
 
         if (arg.scrollToEntry) {
             const viewMode = state.user.localSettings.viewMode
+            const truncateArticlesDynamic = state.user.settings?.truncateArticlesDynamic
 
             const entryIndex = state.entries.entries.indexOf(entry)
             const entriesToKeepOnTopWhenScrolling =
-                viewMode === "expanded" ? 0 : Math.min(state.user.settings?.entriesToKeepOnTopWhenScrolling ?? 0, entryIndex)
+                viewMode === "expanded" || truncateArticlesDynamic
+                    ? 0
+                    : Math.min(state.user.settings?.entriesToKeepOnTopWhenScrolling ?? 0, entryIndex)
             const entryToScrollTo = state.entries.entries[entryIndex - entriesToKeepOnTopWhenScrolling]
 
             const entryElement = document.getElementById(Constants.dom.entryId(entry))
             const entryElementToScrollTo = document.getElementById(Constants.dom.entryId(entryToScrollTo))
             if (entryElement && entryElementToScrollTo) {
-                const scrollMode = state.user.settings?.scrollMode
+                const scrollMode = truncateArticlesDynamic ? "always" : state.user.settings?.scrollMode
                 const entryEntirelyVisible =
                     Constants.layout.isTopVisible(entryElementToScrollTo) && Constants.layout.isBottomVisible(entryElement)
                 if (scrollMode === "always" || (scrollMode === "if_needed" && !entryEntirelyVisible)) {
