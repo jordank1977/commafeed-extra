@@ -36,6 +36,7 @@ BongoFeed is a CommaFeed fork enhancing the RSS reading experience with article 
 *   **Known Issues**: PostgreSQL 18+ docker mount point change (addressed in recent commits).
 
 ## 5. CHANGELOG
+[2026-01-18] - [FIX]: Fixed CI build failure by removing erroneous database migration.
 [2026-01-18] - [FIX]: Resolved scrolling, layout, and settings interactions for Dynamic Truncation.
 [2026-01-18] - [FIX]: Resolved database column conflicts and frontend state logic.
 [2026-01-18] - [FEAT]: Added Dynamic Article Truncation
@@ -97,3 +98,10 @@ BongoFeed is a CommaFeed fork enhancing the RSS reading experience with article 
     *   Updated `FeedEntry.tsx` to force `scrollMode='always'` when dynamic truncation is active.
     *   Added `scrollMarginTop: 68px` to `paper` styles to prevent articles from scrolling under the sticky header.
     *   Refined `maxHeight` calculation to `calc(100dvh - 170px)` to ensure the selected article allows exactly one furled header to be visible below it with appropriate spacing.
+
+## SESSION CHANGELOG (2026-01-18) - Build Fix
+*   **Database**: Removed erroneous `db.changelog-5.16.xml`.
+    *   This migration attempted to drop column `markAllAsReadNavigateToUnread`, which does not exist in the clean CI environment (the correct column `markAllAsReadNavigateToNextUnread` was added in v5.11).
+    *   This mismatch likely stemmed from a local development environment drift.
+    *   Verified `UserSettings.java` correctly maps to `markAllAsReadNavigateToNextUnread`.
+    *   Updated `migrations.xml` to remove the reference.
