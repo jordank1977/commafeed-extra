@@ -7,6 +7,7 @@ target-ide
 
 # database files
 database
+data/*.db
 
 # log files
 log
