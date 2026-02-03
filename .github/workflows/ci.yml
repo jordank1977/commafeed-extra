@@ -5,6 +5,7 @@ permissions:
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 env:
   JAVA_VERSION: 25
@@ -135,8 +136,15 @@ jobs:
           rename 's/commafeed-.*/quarkus-app/g' artifacts/extracted-jvm-package/*
 
       # Docker
+      - name: Login to Container Registry
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+>>>>>>> a7b7c627 (fix: resolve merge conflicts in ci.yml and add workflow_dispatch)
       - name: Login to GitHub Container Registry
         uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
+=======
+      - name: Login to Container Registry
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+>>>>>>> a7b7c627 (fix: resolve merge conflicts in ci.yml and add workflow_dispatch)
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
