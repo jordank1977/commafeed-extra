@@ -118,7 +118,7 @@ public class UserREST {
 			s.setStarIconDisplayMode(settings.getStarIconDisplayMode());
 			s.setExternalLinkIconDisplayMode(settings.getExternalLinkIconDisplayMode());
 			s.setMarkAllAsReadConfirmation(settings.isMarkAllAsReadConfirmation());
-			s.setMarkAllAsReadNavigateToUnread(settings.isMarkAllAsReadNavigateToUnread());
+			s.setMarkAllAsReadNavigateToNextUnread(settings.isMarkAllAsReadNavigateToNextUnread());
 			s.setCustomContextMenu(settings.isCustomContextMenu());
 			s.setMobileFooter(settings.isMobileFooter());
 			s.setUnreadCountTitle(settings.isUnreadCountTitle());
@@ -150,26 +150,15 @@ public class UserREST {
 			s.setStarIconDisplayMode(IconDisplayMode.ON_DESKTOP);
 			s.setExternalLinkIconDisplayMode(IconDisplayMode.ON_DESKTOP);
 			s.setMarkAllAsReadConfirmation(true);
-			s.setMarkAllAsReadNavigateToUnread(false);
+			s.setMarkAllAsReadNavigateToNextUnread(false);
 			s.setCustomContextMenu(true);
 			s.setMobileFooter(false);
-			s.setDisablePullToRefresh(true);
-			s.setTruncateArticlesToFirstParagraph(false);
-			s.setTruncateArticlesDynamic(false);
-			s.setTruncateArticlesLength(1000);
->>>>>>> bcaddace (Fix truncation settings persistence)
-		}
 			s.setUnreadCountTitle(false);
 			s.setUnreadCountFavicon(true);
 			s.setDisablePullToRefresh(false);
 			s.setTruncateArticlesToFirstParagraph(false);
+			s.setTruncateArticlesDynamic(false);
 			s.setTruncateArticlesLength(1000);
-		}
-=======
-			s.setDisablePullToRefresh(true);
-			s.setTruncateArticlesToFirstParagraph(false);
-			s.setTruncateArticlesLength(1000);
->>>>>>> bcaddace (Fix truncation settings persistence)
 		}
 		return s;
 	}
@@ -200,7 +189,7 @@ public class UserREST {
 		s.setStarIconDisplayMode(settings.getStarIconDisplayMode());
 		s.setExternalLinkIconDisplayMode(settings.getExternalLinkIconDisplayMode());
 		s.setMarkAllAsReadConfirmation(settings.isMarkAllAsReadConfirmation());
-		s.setMarkAllAsReadNavigateToUnread(settings.isMarkAllAsReadNavigateToUnread());
+		s.setMarkAllAsReadNavigateToNextUnread(settings.isMarkAllAsReadNavigateToNextUnread());
 		s.setCustomContextMenu(settings.isCustomContextMenu());
 		s.setMobileFooter(settings.isMobileFooter());
 		s.setUnreadCountTitle(settings.isUnreadCountTitle());

@@ -128,7 +128,7 @@ public class UserSettings extends AbstractModel {
 	private boolean markAllAsReadConfirmation;
 
 	@Column(name = "markAllAsReadNavigateToNextUnread")
-	private boolean markAllAsReadNavigateToUnread;
+	private boolean markAllAsReadNavigateToNextUnread;
 
 	private boolean customContextMenu;
 	private boolean mobileFooter;

@@ -169,7 +169,6 @@ export function DisplaySettings() {
                 onChange={async e => await dispatch(changeMobileFooter(e.currentTarget.checked))}
             />
 
-
             <Switch
                 label={<Trans>Truncate articles</Trans>}
                 description={<Trans>Only show the first N characters of article content. Click the article link to read more.</Trans>}
