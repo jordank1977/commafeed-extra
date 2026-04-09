@@ -1,5 +1,5 @@
 import { Box, Divider, type MantineRadius, type MantineSpacing, Paper } from "@mantine/core"
-import type React from "react"
+import { useEffect, useRef } from "react"
 import { useSwipeable } from "react-swipeable"
 import { Constants } from "@/app/constants"
 import { useAppSelector } from "@/app/store"
@@ -33,72 +33,148 @@ const useStyles = tss
         showSelectionIndicator: boolean
         maxWidth?: number
         fontSizePercentage: number
+        truncateArticlesDynamic?: boolean
     }>()
-    .create(({ theme, colorScheme, read, expanded, viewMode, rtl, showSelectionIndicator, maxWidth, fontSizePercentage }) => {
-        let backgroundColor: string
-        if (colorScheme === "dark") {
-            backgroundColor = read ? "inherit" : theme.colors.dark[5]
-        } else {
-            backgroundColor = read && !expanded ? theme.colors.gray[0] : "inherit"
-        }
+    .create(
+        ({
+            theme,
+            colorScheme,
+            read,
+            expanded,
+            viewMode,
+            rtl,
+            showSelectionIndicator,
+            maxWidth,
+            fontSizePercentage,
+            truncateArticlesDynamic,
+        }) => {
+            let backgroundColor: string
+            if (colorScheme === "dark") {
+                backgroundColor = read ? "inherit" : theme.colors.dark[5]
+            } else {
+                backgroundColor = read && !expanded ? theme.colors.gray[0] : "inherit"
+            }
 
-        let marginY = 10
-        if (viewMode === "title") {
-            marginY = 2
-        } else if (viewMode === "cozy") {
-            marginY = 6
-        }
+            let marginY = 10
+            if (viewMode === "title") {
+                marginY = 2
+            } else if (viewMode === "cozy") {
+                marginY = 6
+            }
 
-        let mobileMarginY = 6
-        if (viewMode === "title") {
-            mobileMarginY = 2
-        } else if (viewMode === "cozy") {
-            mobileMarginY = 4
-        }
+            let mobileMarginY = 6
+            if (viewMode === "title") {
+                mobileMarginY = 2
+            } else if (viewMode === "cozy") {
+                mobileMarginY = 4
+            }
 
-        let backgroundHoverColor = backgroundColor
-        if (!expanded && !read) {
-            backgroundHoverColor = colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[1]
-        }
+            let backgroundHoverColor = backgroundColor
+            if (!expanded && !read) {
+                backgroundHoverColor = colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[1]
+            }
 
-        let paperBorderLeftColor = ""
-        if (showSelectionIndicator) {
-            const borderLeftColor = colorScheme === "dark" ? theme.colors[theme.primaryColor][4] : theme.colors[theme.primaryColor][6]
-            paperBorderLeftColor = `${borderLeftColor} !important`
-        }
+            let paperBorderLeftColor = ""
+            if (showSelectionIndicator) {
+                const borderLeftColor = colorScheme === "dark" ? theme.colors[theme.primaryColor][4] : theme.colors[theme.primaryColor][6]
+                paperBorderLeftColor = `${borderLeftColor} !important`
+            }
 
-        return {
-            paper: {
-                backgroundColor,
-                borderLeftColor: paperBorderLeftColor,
-                marginTop: marginY,
-                marginBottom: marginY,
-                [`@media (max-width: ${Constants.layout.mobileBreakpoint}px)`]: {
-                    marginTop: mobileMarginY,
-                    marginBottom: mobileMarginY,
-                },
-                "@media (hover: hover)": {
-                    "&:hover": {
-                        backgroundColor: backgroundHoverColor,
+            // Calculate exact space needed to leave exactly 1 furled card at the bottom.
+            // A furled card height varies by view mode. We estimate the total height (including margins) here:
+            let furledCardHeight = 46 // default fallback cards
+            let mobileFurledCardHeight = 46
+            if (viewMode === "title") {
+                furledCardHeight = 30
+                mobileFurledCardHeight = 30
+            } else if (viewMode === "cozy") {
+                furledCardHeight = 44
+                mobileFurledCardHeight = 40
+            } else {
+                // detailed
+                furledCardHeight = 72
+                mobileFurledCardHeight = 64
+            }
+
+            const headerHeight = Constants.layout.headerHeight
+            // Total height to subtract = headerHeight + 1 furled card + margins (1 above furled card, 1 below, 1 below furled card at bottom)
+            const heightToSubtract = headerHeight + furledCardHeight + 3 * marginY
+            const mobileHeightToSubtract = headerHeight + mobileFurledCardHeight + 3 * mobileMarginY
+
+            const truncateStyles =
+                expanded && truncateArticlesDynamic
+                    ? {
+                          display: "flex",
+                          flexDirection: "column" as const,
+                          maxHeight: `calc(100dvh - ${heightToSubtract}px)`,
+                          scrollMarginTop: `${headerHeight}px`,
+                      }
+                    : {}
+
+            const mobileTruncateStyles =
+                expanded && truncateArticlesDynamic
+                    ? {
+                          maxHeight: `calc(100dvh - ${mobileHeightToSubtract}px)`,
+                      }
+                    : {}
+
+            const truncateBodyStyles =
+                expanded && truncateArticlesDynamic
+                    ? {
+                          flex: 1,
+                          minHeight: 0,
+                          display: "flex",
+                          flexDirection: "column" as const,
+                      }
+                    : {}
+
+            return {
+                paper: {
+                    backgroundColor,
+                    borderLeftColor: paperBorderLeftColor,
+                    marginTop: marginY,
+                    marginBottom: marginY,
+                    ...truncateStyles,
+                    [`@media (max-width: ${Constants.layout.mobileBreakpoint}px)`]: {
+                        marginTop: mobileMarginY,
+                        marginBottom: mobileMarginY,
+                        ...mobileTruncateStyles,
+                    },
+                    "@media (hover: hover)": {
+                        "&:hover": {
+                            backgroundColor: backgroundHoverColor,
+                        },
                     },
                 },
-            },
-            headerLink: {
-                fontSize: `${fontSizePercentage}%`,
-                color: "inherit",
-                textDecoration: "none",
-            },
-            body: {
-                fontSize: `${fontSizePercentage}%`,
-                direction: rtl ? "rtl" : "ltr",
-                maxWidth: maxWidth ?? "100%",
-            },
+                headerLink: {
+                    fontSize: `${fontSizePercentage}%`,
+                    color: "inherit",
+                    textDecoration: "none",
+                },
+                bodyWrapper: {
+                    ...truncateBodyStyles,
+                },
+                body: {
+                    fontSize: `${fontSizePercentage}%`,
+                    direction: rtl ? "rtl" : "ltr",
+                    maxWidth: maxWidth ?? "100%",
+                    ...(expanded && truncateArticlesDynamic
+                        ? {
+                              flex: 1,
+                              minHeight: 0,
+                              overflowY: "hidden",
+                          }
+                        : {}),
+                },
+            }
         }
-    })
+    )
 
 export function FeedEntry(props: Readonly<FeedEntryProps>) {
     const viewMode = useAppSelector(state => state.user.localSettings.viewMode)
     const fontSizePercentage = useAppSelector(state => state.user.localSettings.fontSizePercentage)
+    const truncateArticlesDynamic = useAppSelector(state => state.user.settings?.truncateArticlesDynamic)
+    const scrollMode = useAppSelector(state => state.user.settings?.scrollMode)
     const { classes, cx } = useStyles({
         read: props.entry.read,
         expanded: props.expanded,
@@ -107,6 +183,7 @@ export function FeedEntry(props: Readonly<FeedEntryProps>) {
         showSelectionIndicator: props.showSelectionIndicator,
         maxWidth: props.maxWidth,
         fontSizePercentage,
+        truncateArticlesDynamic,
     })
 
     const externalLinkDisplayMode = useAppSelector(state => state.user.settings?.externalLinkIconDisplayMode)
@@ -139,9 +216,21 @@ export function FeedEntry(props: Readonly<FeedEntryProps>) {
         borderRadius = "xs"
     }
 
+    const paperRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (props.expanded && truncateArticlesDynamic) {
+            if (scrollMode !== "never" && paperRef.current) {
+                paperRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
+                paperRef.current.focus({ preventScroll: true })
+            }
+        }
+    }, [props.expanded, truncateArticlesDynamic, scrollMode])
+
     const compactHeader = !props.expanded && (viewMode === "title" || viewMode === "cozy")
     return (
         <Paper
+            ref={paperRef}
             component="article"
             id={Constants.dom.entryId(props.entry)}
             data-id={props.entry.id}
@@ -184,7 +273,7 @@ export function FeedEntry(props: Readonly<FeedEntryProps>) {
                 </Box>
             </a>
             {props.expanded && (
-                <Box px={paddingX} pb={paddingY} onClick={props.onBodyClick}>
+                <Box px={paddingX} pb={paddingY} onClick={props.onBodyClick} className={classes.bodyWrapper}>
                     <Box className={`${classes.body} cf-content`}>
                         <FeedEntryBody entry={props.entry} />
                     </Box>

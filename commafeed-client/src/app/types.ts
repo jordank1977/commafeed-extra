@@ -284,6 +284,7 @@ export interface Settings {
     unreadCountTitle: boolean
     unreadCountFavicon: boolean
     disablePullToRefresh: boolean
+    truncateArticlesDynamic: boolean
     primaryColor?: string
     sharingSettings: SharingSettings
     pushNotificationSettings: PushNotificationSettings

@@ -338,6 +338,10 @@ msgstr "İndir"
 msgid "Drag link to bookmark bar"
 msgstr "Bağlantıyı yer işareti çubuğuna sürükleyin"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Dynamically sizes unfurled article to maximum available height (forces Scroll entry to top of page to \"Always\")"
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/settings/ProfileSettings.tsx
 #: src/pages/admin/AdminUsersPage.tsx
@@ -708,8 +712,8 @@ msgid "On mobile, show action buttons at the bottom of the screen"
 msgstr "Mobilde, eylem düğmelerini ekranın altında göster"
 
 #: src/components/settings/DisplaySettings.tsx
-msgid "Only applies to compact, cozy and detailed modes"
-msgstr "Yalnızca kompakt, rahat ve detaylı modlar için geçerlidir"
+msgid "Only applies to compact, cozy and detailed modes. Does not apply to Truncate articles."
+msgstr ""
 
 #: src/pages/ErrorPage.tsx
 msgid "Oops!"
@@ -1117,6 +1121,10 @@ msgstr "Geçerli girişin yıldızlı durumunu değiştir"
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "Topic"
 msgstr "Konu"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles"
+msgstr ""
 
 #: src/pages/auth/LoginPage.tsx
 msgid "Try out CommaFeed with the demo account: demo/demo"

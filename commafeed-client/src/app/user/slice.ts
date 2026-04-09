@@ -21,6 +21,7 @@ import {
     changeSharingSetting,
     changeShowRead,
     changeStarIconDisplayMode,
+    changeTruncateArticlesDynamic,
     changeUnreadCountFavicon,
     changeUnreadCountTitle,
     reloadProfile,
@@ -141,6 +142,10 @@ export const userSlice = createSlice({
             if (!state.settings) return
             state.settings.disablePullToRefresh = action.meta.arg
         })
+        builder.addCase(changeTruncateArticlesDynamic.pending, (state, action) => {
+            if (!state.settings) return
+            state.settings.truncateArticlesDynamic = action.meta.arg
+        })
         builder.addCase(changePrimaryColor.pending, (state, action) => {
             if (!state.settings) return
             state.settings.primaryColor = action.meta.arg
@@ -171,6 +176,7 @@ export const userSlice = createSlice({
                 changeUnreadCountTitle.fulfilled,
                 changeUnreadCountFavicon.fulfilled,
                 changeDisablePullToRefresh.fulfilled,
+                changeTruncateArticlesDynamic.fulfilled,
                 changePrimaryColor.fulfilled,
                 changeSharingSetting.fulfilled,
                 changePushNotificationSettings.fulfilled

@@ -23,6 +23,7 @@ import {
     changeSharingSetting,
     changeShowRead,
     changeStarIconDisplayMode,
+    changeTruncateArticlesDynamic,
     changeUnreadCountFavicon,
     changeUnreadCountTitle,
 } from "@/app/user/thunks"
@@ -44,6 +45,7 @@ export function DisplaySettings() {
     const unreadCountTitle = useAppSelector(state => state.user.settings?.unreadCountTitle)
     const unreadCountFavicon = useAppSelector(state => state.user.settings?.unreadCountFavicon)
     const disablePullToRefresh = useAppSelector(state => state.user.settings?.disablePullToRefresh)
+    const truncateArticlesDynamic = useAppSelector(state => state.user.settings?.truncateArticlesDynamic)
     const sharingSettings = useAppSelector(state => state.user.settings?.sharingSettings)
     const primaryColor = useAppSelector(state => state.user.settings?.primaryColor) || Constants.theme.defaultPrimaryColor
     const { _ } = useLingui()
@@ -143,6 +145,17 @@ export function DisplaySettings() {
                 onChange={async e => await dispatch(changeMobileFooter(e.currentTarget.checked))}
             />
 
+            <Switch
+                label={<Trans>Truncate articles</Trans>}
+                description={
+                    <Trans>
+                        Dynamically sizes unfurled article to maximum available height (forces Scroll entry to top of page to "Always")
+                    </Trans>
+                }
+                checked={truncateArticlesDynamic}
+                onChange={async e => await dispatch(changeTruncateArticlesDynamic(e.currentTarget.checked))}
+            />
+
             <Divider label={<Trans>Scrolling</Trans>} labelPosition="center" />
 
             <Switch
@@ -154,21 +167,22 @@ export function DisplaySettings() {
 
             <Radio.Group
                 label={<Trans>Scroll selected entry to the top of the page</Trans>}
-                value={scrollMode}
+                value={truncateArticlesDynamic ? "always" : scrollMode}
                 onChange={async value => await dispatch(changeScrollMode(value as ScrollMode))}
             >
                 <Group mt="xs">
                     {Object.entries(scrollModeOptions).map(e => (
-                        <Radio key={e[0]} value={e[0]} label={e[1]} />
+                        <Radio key={e[0]} value={e[0]} label={e[1]} disabled={truncateArticlesDynamic} />
                     ))}
                 </Group>
             </Radio.Group>
 
             <NumberInput
                 label={<Trans>Entries to keep above the selected entry when scrolling</Trans>}
-                description={<Trans>Only applies to compact, cozy and detailed modes</Trans>}
+                description={<Trans>Only applies to compact, cozy and detailed modes. Does not apply to Truncate articles.</Trans>}
                 min={0}
-                value={entriesToKeepOnTop}
+                value={truncateArticlesDynamic ? 0 : entriesToKeepOnTop}
+                disabled={truncateArticlesDynamic}
                 onChange={async value => await dispatch(changeEntriesToKeepOnTopWhenScrolling(+value))}
             />
 

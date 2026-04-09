@@ -338,6 +338,10 @@ msgstr "Télécharger"
 msgid "Drag link to bookmark bar"
 msgstr "Déplacez le lien vers la barre de favoris"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Dynamically sizes unfurled article to maximum available height (forces Scroll entry to top of page to \"Always\")"
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/settings/ProfileSettings.tsx
 #: src/pages/admin/AdminUsersPage.tsx
@@ -708,8 +712,8 @@ msgid "On mobile, show action buttons at the bottom of the screen"
 msgstr "Sur mobile, afficher les boutons d'action en bas de l'écran"
 
 #: src/components/settings/DisplaySettings.tsx
-msgid "Only applies to compact, cozy and detailed modes"
-msgstr "Ne fonctionne que dans les modes Compact, Cozy, et Vue détaillée"
+msgid "Only applies to compact, cozy and detailed modes. Does not apply to Truncate articles."
+msgstr ""
 
 #: src/pages/ErrorPage.tsx
 msgid "Oops!"
@@ -1117,6 +1121,10 @@ msgstr "Montrer/cacher le statut favori de l'entrée"
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "Topic"
 msgstr "Sujet"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles"
+msgstr ""
 
 #: src/pages/auth/LoginPage.tsx
 msgid "Try out CommaFeed with the demo account: demo/demo"

@@ -76,6 +76,9 @@ public class Settings implements Serializable {
 	@Schema(description = "disable pull to refresh", required = true)
 	private boolean disablePullToRefresh;
 
+	@Schema(description = "truncate articles dynamically based on viewport height", required = true)
+	private boolean truncateArticlesDynamic;
+
 	@Schema(description = "primary theme color to use in the UI")
 	private String primaryColor;
 

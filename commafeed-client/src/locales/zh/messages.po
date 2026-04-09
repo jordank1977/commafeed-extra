@@ -338,6 +338,10 @@ msgstr "下载"
 msgid "Drag link to bookmark bar"
 msgstr "拖动链接到书签栏"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Dynamically sizes unfurled article to maximum available height (forces Scroll entry to top of page to \"Always\")"
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/settings/ProfileSettings.tsx
 #: src/pages/admin/AdminUsersPage.tsx
@@ -708,8 +712,8 @@ msgid "On mobile, show action buttons at the bottom of the screen"
 msgstr "在移动端，显示屏幕底部的操作按钮"
 
 #: src/components/settings/DisplaySettings.tsx
-msgid "Only applies to compact, cozy and detailed modes"
-msgstr "仅适用于紧凑、宽松和详细模式"
+msgid "Only applies to compact, cozy and detailed modes. Does not apply to Truncate articles."
+msgstr ""
 
 #: src/pages/ErrorPage.tsx
 msgid "Oops!"
@@ -1117,6 +1121,10 @@ msgstr "切换当前条目的星标状态"
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "Topic"
 msgstr "主题"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles"
+msgstr ""
 
 #: src/pages/auth/LoginPage.tsx
 msgid "Try out CommaFeed with the demo account: demo/demo"

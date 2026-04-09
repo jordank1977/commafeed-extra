@@ -338,6 +338,10 @@ msgstr "Скачать"
 msgid "Drag link to bookmark bar"
 msgstr "Перетащите ссылку на панель закладок"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Dynamically sizes unfurled article to maximum available height (forces Scroll entry to top of page to \"Always\")"
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/settings/ProfileSettings.tsx
 #: src/pages/admin/AdminUsersPage.tsx
@@ -708,8 +712,8 @@ msgid "On mobile, show action buttons at the bottom of the screen"
 msgstr "На мобильных устройствах отображать кнопки действий в нижней части экрана"
 
 #: src/components/settings/DisplaySettings.tsx
-msgid "Only applies to compact, cozy and detailed modes"
-msgstr "Применяется только к компактному, уютному и подробному режимам"
+msgid "Only applies to compact, cozy and detailed modes. Does not apply to Truncate articles."
+msgstr ""
 
 #: src/pages/ErrorPage.tsx
 msgid "Oops!"
@@ -1117,6 +1121,10 @@ msgstr "Переключение статуса избранное для тек
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "Topic"
 msgstr "Тема"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles"
+msgstr ""
 
 #: src/pages/auth/LoginPage.tsx
 msgid "Try out CommaFeed with the demo account: demo/demo"

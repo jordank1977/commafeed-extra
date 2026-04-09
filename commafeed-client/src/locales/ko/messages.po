@@ -338,6 +338,10 @@ msgstr "다운로드"
 msgid "Drag link to bookmark bar"
 msgstr "링크를 북마크바로 드래그"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Dynamically sizes unfurled article to maximum available height (forces Scroll entry to top of page to \"Always\")"
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/settings/ProfileSettings.tsx
 #: src/pages/admin/AdminUsersPage.tsx
@@ -708,8 +712,8 @@ msgid "On mobile, show action buttons at the bottom of the screen"
 msgstr "모바일에서는 화면 하단에 작업 버튼 표시"
 
 #: src/components/settings/DisplaySettings.tsx
-msgid "Only applies to compact, cozy and detailed modes"
-msgstr "컴팩트, 코지, 상세 모드에만 적용됩니다."
+msgid "Only applies to compact, cozy and detailed modes. Does not apply to Truncate articles."
+msgstr ""
 
 #: src/pages/ErrorPage.tsx
 msgid "Oops!"
@@ -1117,6 +1121,10 @@ msgstr "현재 항목의 별표 표시 상태 전환"
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "Topic"
 msgstr "주제"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles"
+msgstr ""
 
 #: src/pages/auth/LoginPage.tsx
 msgid "Try out CommaFeed with the demo account: demo/demo"

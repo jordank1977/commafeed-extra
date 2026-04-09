@@ -40,3 +40,16 @@ src/main/app/lib
 
 # Macs
 *.DS_Store
+
+# --- CUSTOM CLEAN ROOM EXCLUSIONS ---
+# AI Context & Agent Rules
+.cline-dev/
+.clinerules/
+.julesrules/
+
+# Local Dev Data
+data/
+logs/
+
+# Explicit Frontend Binaries
+commafeed-client/node/

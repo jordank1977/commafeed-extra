@@ -339,6 +339,10 @@ msgstr "Descargar"
 msgid "Drag link to bookmark bar"
 msgstr "Arrastra a ligazón á barra de marcadores"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Dynamically sizes unfurled article to maximum available height (forces Scroll entry to top of page to \"Always\")"
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/settings/ProfileSettings.tsx
 #: src/pages/admin/AdminUsersPage.tsx
@@ -709,8 +713,8 @@ msgid "On mobile, show action buttons at the bottom of the screen"
 msgstr "No móbil, mostrar botóns de acción na parte baixa da pantalla"
 
 #: src/components/settings/DisplaySettings.tsx
-msgid "Only applies to compact, cozy and detailed modes"
-msgstr "Só se aplica ao modo compacto, acolledor e detallado"
+msgid "Only applies to compact, cozy and detailed modes. Does not apply to Truncate articles."
+msgstr ""
 
 #: src/pages/ErrorPage.tsx
 msgid "Oops!"
@@ -1118,6 +1122,10 @@ msgstr "Activación do marcado con estrela do artigo actual"
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "Topic"
 msgstr "Tema"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Truncate articles"
+msgstr ""
 
 #: src/pages/auth/LoginPage.tsx
 msgid "Try out CommaFeed with the demo account: demo/demo"

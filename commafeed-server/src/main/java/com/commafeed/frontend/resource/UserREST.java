@@ -132,6 +132,7 @@ public class UserREST {
 			s.setUnreadCountTitle(settings.isUnreadCountTitle());
 			s.setUnreadCountFavicon(settings.isUnreadCountFavicon());
 			s.setDisablePullToRefresh(settings.isDisablePullToRefresh());
+			s.setTruncateArticlesDynamic(settings.isTruncateArticlesDynamic());
 			s.setPrimaryColor(settings.getPrimaryColor());
 
 			if (settings.getPushNotifications() != null) {
@@ -168,6 +169,7 @@ public class UserREST {
 			s.setUnreadCountTitle(false);
 			s.setUnreadCountFavicon(true);
 			s.setDisablePullToRefresh(false);
+			s.setTruncateArticlesDynamic(false);
 		}
 		return s;
 	}
@@ -204,6 +206,7 @@ public class UserREST {
 		s.setUnreadCountTitle(settings.isUnreadCountTitle());
 		s.setUnreadCountFavicon(settings.isUnreadCountFavicon());
 		s.setDisablePullToRefresh(settings.isDisablePullToRefresh());
+		s.setTruncateArticlesDynamic(settings.isTruncateArticlesDynamic());
 		s.setPrimaryColor(settings.getPrimaryColor());
 
 		PushNotificationUserSettings ps = new PushNotificationUserSettings();

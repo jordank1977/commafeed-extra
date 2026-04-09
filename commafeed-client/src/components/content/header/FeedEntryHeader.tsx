@@ -1,4 +1,5 @@
 import { Box, Flex, Space } from "@mantine/core"
+import { useAppSelector } from "@/app/store"
 import type { Entry } from "@/app/types"
 import { FeedFavicon } from "@/components/content/FeedFavicon"
 import { OpenExternalLink } from "@/components/content/header/OpenExternalLink"
@@ -17,16 +18,36 @@ export interface FeedEntryHeaderProps {
 const useStyles = tss
     .withParams<{
         read: boolean
+        truncateTitle: boolean
     }>()
-    .create(({ colorScheme, read }) => ({
+    .create(({ colorScheme, read, truncateTitle }) => ({
         main: {
             fontWeight: colorScheme === "light" && !read ? "bold" : "inherit",
+            ...(truncateTitle
+                ? {
+                      flex: 1,
+                      minWidth: 0,
+                  }
+                : {}),
+        },
+        titleWrapper: {
+            ...(truncateTitle
+                ? {
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                  }
+                : {}),
         },
     }))
 
 export function FeedEntryHeader(props: Readonly<FeedEntryHeaderProps>) {
+    const truncateArticlesDynamic = useAppSelector(state => state.user.settings?.truncateArticlesDynamic)
+    const truncateTitle = !!(!props.expanded && truncateArticlesDynamic)
+
     const { classes } = useStyles({
         read: props.entry.read,
+        truncateTitle,
     })
     return (
         <Box className="cf-header">
@@ -37,7 +58,9 @@ export function FeedEntryHeader(props: Readonly<FeedEntryHeaderProps>) {
                             <Star entry={props.entry} />
                         </Box>
                     )}
-                    <FeedEntryTitle entry={props.entry} />
+                    <Box className={classes.titleWrapper}>
+                        <FeedEntryTitle entry={props.entry} />
+                    </Box>
                 </Flex>
                 {props.showExternalLinkIcon && <OpenExternalLink entry={props.entry} />}
             </Flex>

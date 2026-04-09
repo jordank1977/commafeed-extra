@@ -131,6 +131,15 @@ export const changeDisablePullToRefresh = createAppAsyncThunk(
     }
 )
 
+export const changeTruncateArticlesDynamic = createAppAsyncThunk(
+    "settings/truncateArticlesDynamic",
+    (truncateArticlesDynamic: boolean, thunkApi) => {
+        const { settings } = thunkApi.getState().user
+        if (!settings) return
+        client.user.saveSettings({ ...settings, truncateArticlesDynamic })
+    }
+)
+
 export const changePrimaryColor = createAppAsyncThunk("settings/primaryColor", (primaryColor: string, thunkApi) => {
     const { settings } = thunkApi.getState().user
     if (!settings) return
