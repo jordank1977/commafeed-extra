@@ -104,6 +104,7 @@ class WebSocketIT extends BaseIT {
 		req.setId(subscriptionId);
 		req.setName("feed-name");
 		req.setFilter("!titleLower.contains('item 4')");
+		req.setUseGlobalFilter(false);
 		RestAssured.given().body(req).contentType(ContentType.JSON).post("rest/feed/modify").then().statusCode(HttpStatus.SC_OK);
 
 		AtomicBoolean connected = new AtomicBoolean();
