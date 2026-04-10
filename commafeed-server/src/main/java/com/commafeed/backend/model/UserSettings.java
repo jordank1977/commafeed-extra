@@ -147,6 +147,9 @@ public class UserSettings extends AbstractModel {
 	private boolean disablePullToRefresh;
 	private boolean truncateArticlesDynamic;
 
+	@Column(name = "filtering_expression", length = 4096)
+	private String filter;
+
 	private boolean email;
 	private boolean gmail;
 	private boolean facebook;

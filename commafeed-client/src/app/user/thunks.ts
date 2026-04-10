@@ -140,6 +140,12 @@ export const changeTruncateArticlesDynamic = createAppAsyncThunk(
     }
 )
 
+export const changeGlobalFilter = createAppAsyncThunk("settings/globalFilter", (filter: string, thunkApi) => {
+    const { settings } = thunkApi.getState().user
+    if (!settings) return
+    client.user.saveSettings({ ...settings, filter })
+})
+
 export const changePrimaryColor = createAppAsyncThunk("settings/primaryColor", (primaryColor: string, thunkApi) => {
     const { settings } = thunkApi.getState().user
     if (!settings) return

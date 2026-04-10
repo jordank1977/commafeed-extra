@@ -51,6 +51,8 @@ import com.commafeed.backend.model.UserSettings.PushNotificationUserSettings;
 import com.commafeed.backend.model.UserSettings.ReadingMode;
 import com.commafeed.backend.model.UserSettings.ReadingOrder;
 import com.commafeed.backend.model.UserSettings.ScrollMode;
+import com.commafeed.backend.service.FeedEntryFilteringService;
+import com.commafeed.backend.service.FeedEntryFilteringService.FeedEntryFilterException;
 import com.commafeed.backend.service.MailService;
 import com.commafeed.backend.service.PasswordEncryptionService;
 import com.commafeed.backend.service.PushNotificationService;
@@ -92,6 +94,7 @@ public class UserREST {
 	private final CommaFeedConfiguration config;
 	private final UriInfo uri;
 	private final PushNotificationService pushNotificationService;
+	private final FeedEntryFilteringService feedEntryFilteringService;
 
 	@Path("/settings")
 	@GET
@@ -133,6 +136,7 @@ public class UserREST {
 			s.setUnreadCountFavicon(settings.isUnreadCountFavicon());
 			s.setDisablePullToRefresh(settings.isDisablePullToRefresh());
 			s.setTruncateArticlesDynamic(settings.isTruncateArticlesDynamic());
+			s.setFilter(settings.getFilter());
 			s.setPrimaryColor(settings.getPrimaryColor());
 
 			if (settings.getPushNotifications() != null) {
@@ -170,6 +174,7 @@ public class UserREST {
 			s.setUnreadCountFavicon(true);
 			s.setDisablePullToRefresh(false);
 			s.setTruncateArticlesDynamic(false);
+			s.setFilter(null);
 		}
 		return s;
 	}
@@ -180,6 +185,19 @@ public class UserREST {
 	@Operation(summary = "Save user settings", description = "Save user settings")
 	public Response saveUserSettings(@Parameter(required = true) Settings settings) {
 		Preconditions.checkNotNull(settings);
+
+		try {
+			// Using the same TEST_ENTRY approach as FeedREST
+			FeedEntry testEntry = new FeedEntry();
+			FeedEntryContent content = new FeedEntryContent();
+			content.setTitle("test title");
+			testEntry.setContent(content);
+			testEntry.setUrl("test url");
+
+			feedEntryFilteringService.filterMatchesEntry(settings.getFilter(), testEntry);
+		} catch (FeedEntryFilterException e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getCause().getMessage()).type(MediaType.TEXT_PLAIN).build();
+		}
 
 		User user = authenticationContext.getCurrentUser();
 		UserSettings s = userSettingsDAO.findByUser(user);
@@ -207,6 +225,7 @@ public class UserREST {
 		s.setUnreadCountFavicon(settings.isUnreadCountFavicon());
 		s.setDisablePullToRefresh(settings.isDisablePullToRefresh());
 		s.setTruncateArticlesDynamic(settings.isTruncateArticlesDynamic());
+		s.setFilter(settings.getFilter());
 		s.setPrimaryColor(settings.getPrimaryColor());
 
 		PushNotificationUserSettings ps = new PushNotificationUserSettings();

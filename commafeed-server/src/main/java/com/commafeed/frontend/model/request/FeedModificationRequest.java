@@ -31,6 +31,9 @@ public class FeedModificationRequest implements Serializable {
 	@Size(max = 4096)
 	private String filter;
 
+	@Schema(description = "whether to apply the global filter for this feed")
+	private Boolean useGlobalFilter;
+
 	@Schema(description = "whether to send push notifications for new entries of this feed")
 	private boolean pushNotificationsEnabled;
 

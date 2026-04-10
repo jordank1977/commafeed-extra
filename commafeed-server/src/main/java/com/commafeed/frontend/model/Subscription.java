@@ -65,6 +65,9 @@ public class Subscription implements Serializable {
 	@Schema(description = "JEXL legacy filter")
 	private String filterLegacy;
 
+	@Schema(description = "whether to apply the global filter for this feed")
+	private boolean useGlobalFilter;
+
 	@Schema(description = "whether to send push notifications for new entries of this feed", required = true)
 	private boolean pushNotificationsEnabled;
 
@@ -91,6 +94,7 @@ public class Subscription implements Serializable {
 		sub.setCategoryId(category == null ? null : String.valueOf(category.getId()));
 		sub.setFilter(subscription.getFilter());
 		sub.setFilterLegacy(subscription.getFilterLegacy());
+		sub.setUseGlobalFilter(subscription.isUseGlobalFilter());
 		sub.setPushNotificationsEnabled(subscription.isPushNotificationsEnabled());
 		sub.setAutoMarkAsReadAfterDays(subscription.getAutoMarkAsReadAfterDays());
 		return sub;

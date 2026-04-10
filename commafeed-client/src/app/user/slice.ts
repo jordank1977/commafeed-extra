@@ -7,6 +7,7 @@ import {
     changeDisablePullToRefresh,
     changeEntriesToKeepOnTopWhenScrolling,
     changeExternalLinkIconDisplayMode,
+    changeGlobalFilter,
     changeLanguage,
     changeMarkAllAsReadConfirmation,
     changeMarkAllAsReadNavigateToUnread,
@@ -145,6 +146,10 @@ export const userSlice = createSlice({
         builder.addCase(changeTruncateArticlesDynamic.pending, (state, action) => {
             if (!state.settings) return
             state.settings.truncateArticlesDynamic = action.meta.arg
+        })
+        builder.addCase(changeGlobalFilter.pending, (state, action) => {
+            if (!state.settings) return
+            state.settings.filter = action.meta.arg
         })
         builder.addCase(changePrimaryColor.pending, (state, action) => {
             if (!state.settings) return

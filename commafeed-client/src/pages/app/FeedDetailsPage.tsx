@@ -13,6 +13,7 @@ import {
     Alert as MantineAlert,
     NumberInput,
     Stack,
+    Switch,
     Text,
     TextInput,
     Title,
@@ -155,27 +156,38 @@ export function FeedDetailsPage() {
                         min={1}
                         max={3650}
                     />
-                    <Input.Wrapper
-                        label={<Trans>Filtering expression</Trans>}
-                        description={
-                            <Trans>
-                                Build a filter expression to indicate what you want to read. Entries that don't match will be marked as read
-                                automatically.
-                            </Trans>
-                        }
-                    >
-                        {feed.filterLegacy && (
-                            <MantineAlert color="yellow" icon={<TbAlertTriangle />}>
+
+                    <Switch
+                        label={<Trans>Use Global Filtering expression</Trans>}
+                        {...form.getInputProps("useGlobalFilter", { type: "checkbox" })}
+                    />
+
+                    {!form.values.useGlobalFilter && (
+                        <Input.Wrapper
+                            label={<Trans>Filtering expression</Trans>}
+                            description={
                                 <Trans>
-                                    This feed has a legacy filter that cannot be edited and is not applied. Please recreate the filter using
-                                    the new expression editor. The legacy filter expression was: <Code>{feed.filterLegacy}</Code>
+                                    Build a filter expression to indicate what you want to read. Entries that don't match will be marked as
+                                    read automatically.
                                 </Trans>
-                            </MantineAlert>
-                        )}
-                        <Box mt="xs">
-                            <FilteringExpressionEditor initialValue={feed.filter} onChange={value => form.setFieldValue("filter", value)} />
-                        </Box>
-                    </Input.Wrapper>
+                            }
+                        >
+                            {feed.filterLegacy && (
+                                <MantineAlert color="yellow" icon={<TbAlertTriangle />}>
+                                    <Trans>
+                                        This feed has a legacy filter that cannot be edited and is not applied. Please recreate the filter
+                                        using the new expression editor. The legacy filter expression was: <Code>{feed.filterLegacy}</Code>
+                                    </Trans>
+                                </MantineAlert>
+                            )}
+                            <Box mt="xs">
+                                <FilteringExpressionEditor
+                                    initialValue={feed.filter}
+                                    onChange={value => form.setFieldValue("filter", value)}
+                                />
+                            </Box>
+                        </Input.Wrapper>
+                    )}
 
                     <Group>
                         <Button variant="default" onClick={async () => await dispatch(redirectToSelectedSource())}>

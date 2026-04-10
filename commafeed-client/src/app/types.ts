@@ -29,6 +29,7 @@ export interface Subscription {
     newestItemTime?: number
     filter?: string
     filterLegacy?: string
+    useGlobalFilter: boolean
     pushNotificationsEnabled: boolean
     autoMarkAsReadAfterDays?: number
 }
@@ -112,6 +113,7 @@ export interface FeedModificationRequest {
     categoryId?: string
     position?: number
     filter?: string
+    useGlobalFilter: boolean
     pushNotificationsEnabled: boolean
     autoMarkAsReadAfterDays?: number
 }
@@ -285,6 +287,7 @@ export interface Settings {
     unreadCountFavicon: boolean
     disablePullToRefresh: boolean
     truncateArticlesDynamic: boolean
+    filter?: string
     primaryColor?: string
     sharingSettings: SharingSettings
     pushNotificationSettings: PushNotificationSettings

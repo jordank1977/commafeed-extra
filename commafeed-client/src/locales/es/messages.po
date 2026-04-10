@@ -168,6 +168,10 @@ msgstr "Pestaña del navegador"
 msgid "Build a filter expression to indicate what you want to read. Entries that don't match will be marked as read automatically."
 msgstr "Crea una expresión de filtrado para indicar lo que quieres leer. Las entradas que no coincidan se marcarán como leídas automáticamente."
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Build a filter expression to indicate what you want to read. Entries that don't match will be marked as read automatically. These are Global filters that apply to all feeds. Overwrite these per feed by setting a different Filtering expression in the feed itself."
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/content/add/AddCategory.tsx
 #: src/components/content/add/ImportOpml.tsx
@@ -422,6 +426,10 @@ msgstr "API de Fever"
 msgid "Fever API URL"
 msgstr "URL de la API de Fever"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Filtering"
+msgstr ""
+
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Filtering expression"
 msgstr "Expresión de filtrado"
@@ -453,6 +461,10 @@ msgstr "Generar nueva clave API"
 #: src/pages/app/TagDetailsPage.tsx
 msgid "Generated feed url"
 msgstr "URL del feed generado"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Global Filtering expression"
+msgstr ""
 
 #. placeholder {0}: truncate(props.entry.feedName, 30)
 #: src/components/content/FeedEntryContextMenu.tsx
@@ -1149,6 +1161,10 @@ msgstr "Desmarcar"
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Unsubscribe"
 msgstr "Cancelar suscripción"
+
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "Use Global Filtering expression"
+msgstr ""
 
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "User key"

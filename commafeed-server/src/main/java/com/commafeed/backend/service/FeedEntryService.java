@@ -9,6 +9,7 @@ import com.commafeed.backend.Digests;
 import com.commafeed.backend.dao.FeedEntryDAO;
 import com.commafeed.backend.dao.FeedEntryStatusDAO;
 import com.commafeed.backend.dao.FeedSubscriptionDAO;
+import com.commafeed.backend.dao.UserSettingsDAO;
 import com.commafeed.backend.feed.FeedEntryKeyword;
 import com.commafeed.backend.feed.FeedUtils;
 import com.commafeed.backend.feed.parser.FeedParserResult.Entry;
@@ -32,6 +33,7 @@ public class FeedEntryService {
 	private final FeedEntryStatusDAO feedEntryStatusDAO;
 	private final FeedEntryContentService feedEntryContentService;
 	private final FeedEntryFilteringService feedEntryFilteringService;
+	private final UserSettingsDAO userSettingsDAO;
 
 	public FeedEntry find(Feed feed, Entry entry) {
 		String guidHash = Digests.sha1Hex(entry.guid());
@@ -54,10 +56,25 @@ public class FeedEntryService {
 
 	public boolean applyFilter(FeedSubscription sub, FeedEntry entry) {
 		boolean matches = true;
+		String filterToApply = sub.getFilter();
+
+		if (sub.isUseGlobalFilter()) {
+			// To avoid N+1 query issue, the settings should ideally be fetched once per fetch process, but UserSettings is not cached in
+			// memory in FeedEntryService.
+			// For now, since userSettings is tied to the user, we will query it.
+			// In the future this should be optimized by passing down the filter from the caller.
+			var settings = userSettingsDAO.findByUser(sub.getUser());
+			if (settings != null && settings.getFilter() != null) {
+				filterToApply = settings.getFilter();
+			} else {
+				filterToApply = null;
+			}
+		}
+
 		try {
-			matches = feedEntryFilteringService.filterMatchesEntry(sub.getFilter(), entry);
+			matches = feedEntryFilteringService.filterMatchesEntry(filterToApply, entry);
 		} catch (FeedEntryFilterException e) {
-			log.error("could not evaluate filter {}", sub.getFilter(), e);
+			log.error("could not evaluate filter {}", filterToApply, e);
 		}
 
 		if (!matches) {

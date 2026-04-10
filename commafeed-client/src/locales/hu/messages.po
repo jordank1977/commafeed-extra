@@ -167,6 +167,10 @@ msgstr "Böngésző fül"
 msgid "Build a filter expression to indicate what you want to read. Entries that don't match will be marked as read automatically."
 msgstr "Hozzon létre egy szűrőkifejezést annak megjelölésére, hogy mit szeretne olvasni. A nem egyező bejegyzések automatikusan olvasottként lesznek megjelölve."
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Build a filter expression to indicate what you want to read. Entries that don't match will be marked as read automatically. These are Global filters that apply to all feeds. Overwrite these per feed by setting a different Filtering expression in the feed itself."
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/content/add/AddCategory.tsx
 #: src/components/content/add/ImportOpml.tsx
@@ -421,6 +425,10 @@ msgstr "Fever API"
 msgid "Fever API URL"
 msgstr "Fever API URL"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Filtering"
+msgstr ""
+
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Filtering expression"
 msgstr "Szűrő kifejezés"
@@ -452,6 +460,10 @@ msgstr "Új API-kulcs létrehozása"
 #: src/pages/app/TagDetailsPage.tsx
 msgid "Generated feed url"
 msgstr "Hírcsatorna generált URL-je"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Global Filtering expression"
+msgstr ""
 
 #. placeholder {0}: truncate(props.entry.feedName, 30)
 #: src/components/content/FeedEntryContextMenu.tsx
@@ -1148,6 +1160,10 @@ msgstr "Csillag eltávolítása"
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Unsubscribe"
 msgstr "Leiratkozás"
+
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "Use Global Filtering expression"
+msgstr ""
 
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "User key"

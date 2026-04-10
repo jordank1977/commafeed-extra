@@ -436,6 +436,10 @@ public class FeedREST {
 			subscription.setFilterLegacy(null);
 		}
 
+		if (req.getUseGlobalFilter() != null) {
+			subscription.setUseGlobalFilter(req.getUseGlobalFilter());
+		}
+
 		subscription.setPushNotificationsEnabled(req.isPushNotificationsEnabled());
 		subscription.setAutoMarkAsReadAfterDays(req.getAutoMarkAsReadAfterDays());
 

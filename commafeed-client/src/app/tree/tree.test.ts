@@ -27,6 +27,7 @@ const createFeed = (id: number, unread: number): Subscription => ({
     feedUrl: "",
     feedLink: "",
     iconUrl: "",
+    useGlobalFilter: true,
     pushNotificationsEnabled: true,
 })
 

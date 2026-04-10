@@ -167,6 +167,10 @@ msgstr "Вкладка браузера"
 msgid "Build a filter expression to indicate what you want to read. Entries that don't match will be marked as read automatically."
 msgstr "Создайте выражение фильтра, чтобы указать, что вы хотите читать. Записи, которые не соответствуют выражению, будут автоматически помечены как прочитанные."
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Build a filter expression to indicate what you want to read. Entries that don't match will be marked as read automatically. These are Global filters that apply to all feeds. Overwrite these per feed by setting a different Filtering expression in the feed itself."
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/content/add/AddCategory.tsx
 #: src/components/content/add/ImportOpml.tsx
@@ -421,6 +425,10 @@ msgstr "Fever API"
 msgid "Fever API URL"
 msgstr "Ссылка Fever API"
 
+#: src/components/settings/DisplaySettings.tsx
+msgid "Filtering"
+msgstr ""
+
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Filtering expression"
 msgstr "Выражение фильтрации"
@@ -452,6 +460,10 @@ msgstr "Создать новый ключ API"
 #: src/pages/app/TagDetailsPage.tsx
 msgid "Generated feed url"
 msgstr "Сгенерированный URL фида"
+
+#: src/components/settings/DisplaySettings.tsx
+msgid "Global Filtering expression"
+msgstr ""
 
 #. placeholder {0}: truncate(props.entry.feedName, 30)
 #: src/components/content/FeedEntryContextMenu.tsx
@@ -1148,6 +1160,10 @@ msgstr "Удалить из избранного"
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Unsubscribe"
 msgstr "Отписаться"
+
+#: src/pages/app/FeedDetailsPage.tsx
+msgid "Use Global Filtering expression"
+msgstr ""
 
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "User key"

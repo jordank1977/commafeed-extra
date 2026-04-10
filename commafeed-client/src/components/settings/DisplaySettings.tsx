@@ -12,6 +12,7 @@ import {
     changeDisablePullToRefresh,
     changeEntriesToKeepOnTopWhenScrolling,
     changeExternalLinkIconDisplayMode,
+    changeGlobalFilter,
     changeLanguage,
     changeMarkAllAsReadConfirmation,
     changeMarkAllAsReadNavigateToUnread,
@@ -27,6 +28,7 @@ import {
     changeUnreadCountFavicon,
     changeUnreadCountTitle,
 } from "@/app/user/thunks"
+import { FilteringExpressionEditor } from "@/components/content/edit/FilteringExpressionEditor"
 import { locales } from "@/i18n"
 
 export function DisplaySettings() {
@@ -46,6 +48,7 @@ export function DisplaySettings() {
     const unreadCountFavicon = useAppSelector(state => state.user.settings?.unreadCountFavicon)
     const disablePullToRefresh = useAppSelector(state => state.user.settings?.disablePullToRefresh)
     const truncateArticlesDynamic = useAppSelector(state => state.user.settings?.truncateArticlesDynamic)
+    const filter = useAppSelector(state => state.user.settings?.filter)
     const sharingSettings = useAppSelector(state => state.user.settings?.sharingSettings)
     const primaryColor = useAppSelector(state => state.user.settings?.primaryColor) || Constants.theme.defaultPrimaryColor
     const { _ } = useLingui()
@@ -211,6 +214,22 @@ export function DisplaySettings() {
                 checked={unreadCountFavicon}
                 onChange={async e => await dispatch(changeUnreadCountFavicon(e.currentTarget.checked))}
             />
+
+            <Divider label={<Trans>Filtering</Trans>} labelPosition="center" />
+
+            <Stack gap="xs">
+                <Box>
+                    <Trans>Global Filtering expression</Trans>
+                </Box>
+                <Box c="dimmed" fz="xs">
+                    <Trans>
+                        Build a filter expression to indicate what you want to read. Entries that don't match will be marked as read
+                        automatically. These are Global filters that apply to all feeds. Overwrite these per feed by setting a different
+                        Filtering expression in the feed itself.
+                    </Trans>
+                </Box>
+                <FilteringExpressionEditor initialValue={filter} onChange={value => dispatch(changeGlobalFilter(value))} />
+            </Stack>
 
             <Divider label={<Trans>Entry headers</Trans>} labelPosition="center" />
 

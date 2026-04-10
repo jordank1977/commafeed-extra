@@ -79,6 +79,9 @@ public class Settings implements Serializable {
 	@Schema(description = "truncate articles dynamically based on viewport height", required = true)
 	private boolean truncateArticlesDynamic;
 
+	@Schema(description = "CEL string evaluated on new entries to mark them as read if they do not match")
+	private String filter;
+
 	@Schema(description = "primary theme color to use in the UI")
 	private String primaryColor;
 
